@@ -1,0 +1,234 @@
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:HK_SECUMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.HK_SECUMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:WINDCUSTOMCODE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSWIND.WINDCUSTOMCODE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:COMPINTRODUCTION
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSWIND.COMPINTRODUCTION任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：ods12main，Sheet页下标：1。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：einfo，Sheet页下标：2。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：info，Sheet页下标：3。读取完毕！！！
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系tasks参数：[{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":1},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSCH.TQ_COMP_INFO","preTasks":[],"retryInterval":"3","id":"tasks-16553","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":2},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSCH.TQ_OA_STCODE","preTasks":[],"retryInterval":"3","id":"tasks-75750","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":3},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.FUT_CONTRACTMAIN","preTasks":[],"retryInterval":"3","id":"tasks-57743","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":4},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.LC_INSTIARCHIVE","preTasks":[],"retryInterval":"3","id":"tasks-67486","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":5},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.SECUMAIN","preTasks":[],"retryInterval":"3","id":"tasks-67034","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":6},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.HK_SECUMAIN","preTasks":[],"retryInterval":"3","id":"tasks-7870","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":7},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSWIND.WINDCUSTOMCODE","preTasks":[],"retryInterval":"3","id":"tasks-34154","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":8},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSWIND.COMPINTRODUCTION","preTasks":[],"retryInterval":"3","id":"tasks-42525","workerGroup":"default"}]
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系connect参数：[]
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系locations参数：{"tasks-42525":{"targetarr":"","nodenumber":"0","name":"ODSWIND.COMPINTRODUCTION","x":246,"y":224},"tasks-7870":{"targetarr":"","nodenumber":"0","name":"ODSJY.HK_SECUMAIN","x":782,"y":355},"tasks-75750":{"targetarr":"","nodenumber":"0","name":"ODSCH.TQ_OA_STCODE","x":166,"y":45},"tasks-67034":{"targetarr":"","nodenumber":"0","name":"ODSJY.SECUMAIN","x":711,"y":127},"tasks-67486":{"targetarr":"","nodenumber":"0","name":"ODSJY.LC_INSTIARCHIVE","x":370,"y":606},"tasks-16553":{"targetarr":"","nodenumber":"0","name":"ODSCH.TQ_COMP_INFO","x":640,"y":71},"tasks-57743":{"targetarr":"","nodenumber":"0","name":"ODSJY.FUT_CONTRACTMAIN","x":212,"y":606},"tasks-34154":{"targetarr":"","nodenumber":"0","name":"ODSWIND.WINDCUSTOMCODE","x":754,"y":701}}
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"【createSchedule】连接异常：org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper.getSchedulerId","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.easyexcel.ExcelListener - Job名字是：ods12main_einfo_info,已执行完毕！！！
+INFO main iquantex.com.AnalysisApplication - 获取文件路径：/Users/mujp/Desktop/FdsDispatchDS10主题表.xlsx
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=PRESENT, 1=ENVIRONMENT, 2=USER_NAME, 3=PASSWORD, 4=IP, 5=PORT, 6=TENANT, 7=DB_TYPE, 8=DB_IP, 9=DB_PORT, 10=DB_UNSER, 11=DB_PASSWORD, 12=DB_DATABASE, 13=PROJECT_NAME, 14=RECEIVERS, 15=RECEIVERSCC}
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=当前环境, 1=环境类型, 2=DS访问信息, 3=null, 4=null, 5=null, 6=null, 7=DS元数据信息, 8=null, 9=null, 10=null, 11=null, 12=null, 13=项目名, 14=用户邮件, 15=抄送人员}
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：initialization，Sheet页下标：0。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=APPLICATION, 1=SUB_APPLICATION, 2=TABLE_NAME, 3=PKG_NAME, 4=TASK_TYPE, 5=DESCRIPTION, 6=CREATED_BY, 7=SCRIPT_TYPE, 8=TASK_PATH, 9=TASK_PARAM, 10=DEPEND_TYPE, 11=DEPEND, 12=DATASOURCE_NAME, 13=DATASOURCE_TYPE, 14=SOLAR_CALENDER, 15=TASK_SCHDULE, 16=CYCLIC, 17=MAXRERUN, 18=INTERVAL, 19=TIMEOUT, 20=ALARM_TIME, 21=ALARM_MESSAGE}
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=应用名, 1=子应用名, 2=表名, 3=存储过程名, 4=任务类型, 5=任务描述, 6=负责人, 7=脚本类型, 8=任务路径, 9=任务参数, 10=前置依赖任务类型, 11=前置依赖任务, 12=数据源名, 13=数据库类型, 14=执行周期（1-5，1-7）, 15=起始时间, 16=失败是否重试（0否，1是）, 17=重试次数, 18=重试间隔时间（单位：分钟）, 19=超时是否告警（0否，1是）, 20=超时告警时间, 21=超时描述信息}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:TQ_COMP_INFO
+INFO main iquantex.com.utils.ParamUtils - 获取环境信息：{"ip":"10.116.18.76","dbType":"MYSQL","receiversCc":"li.zhu@iqauntex.com\npo.li@iqantex.com","dbIp":"10.116.18.76","userName":"fds","dbPort":"3306","environment":"dev","password":"******","port":"12345","receivers":"jianping.mu@iqauntex.com","dbUser":"root","present":"dev","projectName":"FDS","tenant":"kettle","dbDatabase":"dolphinscheduler","dbPassword":"******"}
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSCH.TQ_COMP_INFO任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：1s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:TQ_OA_STCODE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSCH.TQ_OA_STCODE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:FUT_CONTRACTMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.FUT_CONTRACTMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:LC_INSTIARCHIVE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.LC_INSTIARCHIVE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:SECUMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.SECUMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:HK_SECUMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.HK_SECUMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:WINDCUSTOMCODE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSWIND.WINDCUSTOMCODE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:COMPINTRODUCTION
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSWIND.COMPINTRODUCTION任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：ods12main，Sheet页下标：1。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：einfo，Sheet页下标：2。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：info，Sheet页下标：3。读取完毕！！！
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系tasks参数：[{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":1},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSCH.TQ_COMP_INFO","preTasks":[],"retryInterval":"3","id":"tasks-75872","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":2},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSCH.TQ_OA_STCODE","preTasks":[],"retryInterval":"3","id":"tasks-35070","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":3},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.FUT_CONTRACTMAIN","preTasks":[],"retryInterval":"3","id":"tasks-70122","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":4},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.LC_INSTIARCHIVE","preTasks":[],"retryInterval":"3","id":"tasks-54017","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":5},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.SECUMAIN","preTasks":[],"retryInterval":"3","id":"tasks-87532","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":6},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.HK_SECUMAIN","preTasks":[],"retryInterval":"3","id":"tasks-66417","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":7},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSWIND.WINDCUSTOMCODE","preTasks":[],"retryInterval":"3","id":"tasks-88504","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":8},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSWIND.COMPINTRODUCTION","preTasks":[],"retryInterval":"3","id":"tasks-138","workerGroup":"default"}]
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系connect参数：[]
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系locations参数：{"tasks-87532":{"targetarr":"","nodenumber":"0","name":"ODSJY.SECUMAIN","x":34,"y":707},"tasks-75872":{"targetarr":"","nodenumber":"0","name":"ODSCH.TQ_COMP_INFO","x":528,"y":678},"tasks-54017":{"targetarr":"","nodenumber":"0","name":"ODSJY.LC_INSTIARCHIVE","x":446,"y":840},"tasks-66417":{"targetarr":"","nodenumber":"0","name":"ODSJY.HK_SECUMAIN","x":233,"y":554},"tasks-35070":{"targetarr":"","nodenumber":"0","name":"ODSCH.TQ_OA_STCODE","x":254,"y":57},"tasks-138":{"targetarr":"","nodenumber":"0","name":"ODSWIND.COMPINTRODUCTION","x":182,"y":134},"tasks-88504":{"targetarr":"","nodenumber":"0","name":"ODSWIND.WINDCUSTOMCODE","x":856,"y":283},"tasks-70122":{"targetarr":"","nodenumber":"0","name":"ODSJY.FUT_CONTRACTMAIN","x":636,"y":85}}
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"【createSchedule】连接异常：org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 2","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.easyexcel.ExcelListener - Job名字是：ods12main_einfo_info,已执行完毕！！！
+INFO main iquantex.com.AnalysisApplication - 获取文件路径：/Users/mujp/Desktop/FdsDispatchDS10主题表.xlsx
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=PRESENT, 1=ENVIRONMENT, 2=USER_NAME, 3=PASSWORD, 4=IP, 5=PORT, 6=TENANT, 7=DB_TYPE, 8=DB_IP, 9=DB_PORT, 10=DB_UNSER, 11=DB_PASSWORD, 12=DB_DATABASE, 13=PROJECT_NAME, 14=RECEIVERS, 15=RECEIVERSCC}
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=当前环境, 1=环境类型, 2=DS访问信息, 3=null, 4=null, 5=null, 6=null, 7=DS元数据信息, 8=null, 9=null, 10=null, 11=null, 12=null, 13=项目名, 14=用户邮件, 15=抄送人员}
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：initialization，Sheet页下标：0。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=APPLICATION, 1=SUB_APPLICATION, 2=TABLE_NAME, 3=PKG_NAME, 4=TASK_TYPE, 5=DESCRIPTION, 6=CREATED_BY, 7=SCRIPT_TYPE, 8=TASK_PATH, 9=TASK_PARAM, 10=DEPEND_TYPE, 11=DEPEND, 12=DATASOURCE_NAME, 13=DATASOURCE_TYPE, 14=SOLAR_CALENDER, 15=TASK_SCHDULE, 16=CYCLIC, 17=MAXRERUN, 18=INTERVAL, 19=TIMEOUT, 20=ALARM_TIME, 21=ALARM_MESSAGE}
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=应用名, 1=子应用名, 2=表名, 3=存储过程名, 4=任务类型, 5=任务描述, 6=负责人, 7=脚本类型, 8=任务路径, 9=任务参数, 10=前置依赖任务类型, 11=前置依赖任务, 12=数据源名, 13=数据库类型, 14=执行周期（1-5，1-7）, 15=起始时间, 16=失败是否重试（0否，1是）, 17=重试次数, 18=重试间隔时间（单位：分钟）, 19=超时是否告警（0否，1是）, 20=超时告警时间, 21=超时描述信息}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:TQ_COMP_INFO
+INFO main iquantex.com.utils.ParamUtils - 获取环境信息：{"ip":"10.116.18.76","dbType":"MYSQL","receiversCc":"li.zhu@iqauntex.com\npo.li@iqantex.com","dbIp":"10.116.18.76","userName":"fds","dbPort":"3306","environment":"dev","password":"******","port":"12345","receivers":"jianping.mu@iqauntex.com","dbUser":"root","present":"dev","projectName":"FDS","tenant":"kettle","dbDatabase":"dolphinscheduler","dbPassword":"******"}
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSCH.TQ_COMP_INFO任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：1s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:TQ_OA_STCODE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSCH.TQ_OA_STCODE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:FUT_CONTRACTMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.FUT_CONTRACTMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:LC_INSTIARCHIVE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.LC_INSTIARCHIVE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:SECUMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.SECUMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:HK_SECUMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.HK_SECUMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:WINDCUSTOMCODE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSWIND.WINDCUSTOMCODE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:COMPINTRODUCTION
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSWIND.COMPINTRODUCTION任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：ods12main，Sheet页下标：1。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：einfo，Sheet页下标：2。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：info，Sheet页下标：3。读取完毕！！！
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系tasks参数：[{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":1},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSCH.TQ_COMP_INFO","preTasks":[],"retryInterval":"3","id":"tasks-14167","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":2},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSCH.TQ_OA_STCODE","preTasks":[],"retryInterval":"3","id":"tasks-24323","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":3},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.FUT_CONTRACTMAIN","preTasks":[],"retryInterval":"3","id":"tasks-36826","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":4},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.LC_INSTIARCHIVE","preTasks":[],"retryInterval":"3","id":"tasks-26770","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":5},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.SECUMAIN","preTasks":[],"retryInterval":"3","id":"tasks-71280","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":6},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.HK_SECUMAIN","preTasks":[],"retryInterval":"3","id":"tasks-35587","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":7},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSWIND.WINDCUSTOMCODE","preTasks":[],"retryInterval":"3","id":"tasks-48300","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":8},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSWIND.COMPINTRODUCTION","preTasks":[],"retryInterval":"3","id":"tasks-76084","workerGroup":"default"}]
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系connect参数：[]
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系locations参数：{"tasks-14167":{"targetarr":"","nodenumber":"0","name":"ODSCH.TQ_COMP_INFO","x":686,"y":722},"tasks-24323":{"targetarr":"","nodenumber":"0","name":"ODSCH.TQ_OA_STCODE","x":447,"y":521},"tasks-71280":{"targetarr":"","nodenumber":"0","name":"ODSJY.SECUMAIN","x":728,"y":10},"tasks-36826":{"targetarr":"","nodenumber":"0","name":"ODSJY.FUT_CONTRACTMAIN","x":145,"y":418},"tasks-76084":{"targetarr":"","nodenumber":"0","name":"ODSWIND.COMPINTRODUCTION","x":240,"y":573},"tasks-26770":{"targetarr":"","nodenumber":"0","name":"ODSJY.LC_INSTIARCHIVE","x":730,"y":384},"tasks-35587":{"targetarr":"","nodenumber":"0","name":"ODSJY.HK_SECUMAIN","x":20,"y":220},"tasks-48300":{"targetarr":"","nodenumber":"0","name":"ODSWIND.WINDCUSTOMCODE","x":526,"y":626}}
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"【createSchedule】连接异常：org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 3","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.easyexcel.ExcelListener - Job名字是：ods12main_einfo_info,已执行完毕！！！
+INFO main iquantex.com.AnalysisApplication - 获取文件路径：/Users/mujp/Desktop/FdsDispatchDS10主题表.xlsx
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=PRESENT, 1=ENVIRONMENT, 2=USER_NAME, 3=PASSWORD, 4=IP, 5=PORT, 6=TENANT, 7=DB_TYPE, 8=DB_IP, 9=DB_PORT, 10=DB_UNSER, 11=DB_PASSWORD, 12=DB_DATABASE, 13=PROJECT_NAME, 14=RECEIVERS, 15=RECEIVERSCC}
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=当前环境, 1=环境类型, 2=DS访问信息, 3=null, 4=null, 5=null, 6=null, 7=DS元数据信息, 8=null, 9=null, 10=null, 11=null, 12=null, 13=项目名, 14=用户邮件, 15=抄送人员}
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：initialization，Sheet页下标：0。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=APPLICATION, 1=SUB_APPLICATION, 2=TABLE_NAME, 3=PKG_NAME, 4=TASK_TYPE, 5=DESCRIPTION, 6=CREATED_BY, 7=SCRIPT_TYPE, 8=TASK_PATH, 9=TASK_PARAM, 10=DEPEND_TYPE, 11=DEPEND, 12=DATASOURCE_NAME, 13=DATASOURCE_TYPE, 14=SOLAR_CALENDER, 15=TASK_SCHDULE, 16=CYCLIC, 17=MAXRERUN, 18=INTERVAL, 19=TIMEOUT, 20=ALARM_TIME, 21=ALARM_MESSAGE}
+INFO main iquantex.com.easyexcel.ExcelListener - 读取excel表头信息：{0=应用名, 1=子应用名, 2=表名, 3=存储过程名, 4=任务类型, 5=任务描述, 6=负责人, 7=脚本类型, 8=任务路径, 9=任务参数, 10=前置依赖任务类型, 11=前置依赖任务, 12=数据源名, 13=数据库类型, 14=执行周期（1-5，1-7）, 15=起始时间, 16=失败是否重试（0否，1是）, 17=重试次数, 18=重试间隔时间（单位：分钟）, 19=超时是否告警（0否，1是）, 20=超时告警时间, 21=超时描述信息}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:TQ_COMP_INFO
+INFO main iquantex.com.utils.ParamUtils - 获取环境信息：{"ip":"10.116.18.76","dbType":"MYSQL","receiversCc":"li.zhu@iqauntex.com\npo.li@iqantex.com","dbIp":"10.116.18.76","userName":"fds","dbPort":"3306","environment":"dev","password":"******","port":"12345","receivers":"jianping.mu@iqauntex.com","dbUser":"root","present":"dev","projectName":"FDS","tenant":"kettle","dbDatabase":"dolphinscheduler","dbPassword":"******"}
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSCH.TQ_COMP_INFO任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：1s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:TQ_OA_STCODE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSCH.TQ_OA_STCODE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:FUT_CONTRACTMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.FUT_CONTRACTMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:LC_INSTIARCHIVE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.LC_INSTIARCHIVE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:SECUMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.SECUMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:HK_SECUMAIN
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSJY.HK_SECUMAIN任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:WINDCUSTOMCODE
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSWIND.WINDCUSTOMCODE任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.permission.impl.ParamConvert - 开始解析excel中的任务，任务名为:COMPINTRODUCTION
+INFO main iquantex.com.permission.impl.ParamConvert - 【commitTask】开始创建名字为ODSWIND.COMPINTRODUCTION任务。
+INFO main iquantex.com.permission.impl.ParamConvert - 初始化任务总耗时：0s
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+ERROR main iquantex.com.utils.HttpUtil - 执行结果报错:{"data":null,"jobName":null,"msg":"create process definition","projectName":null,"state":"ERROR","userName":null}
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：ods12main，Sheet页下标：1。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：einfo，Sheet页下标：2。读取完毕！！！
+INFO main iquantex.com.easyexcel.ExcelListener - Sheet页名字：info，Sheet页下标：3。读取完毕！！！
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系tasks参数：[{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":1},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSCH.TQ_COMP_INFO","preTasks":[],"retryInterval":"3","id":"tasks-75531","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":2},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSCH.TQ_OA_STCODE","preTasks":[],"retryInterval":"3","id":"tasks-88203","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":3},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.FUT_CONTRACTMAIN","preTasks":[],"retryInterval":"3","id":"tasks-44033","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":4},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.LC_INSTIARCHIVE","preTasks":[],"retryInterval":"3","id":"tasks-27586","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":5},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.SECUMAIN","preTasks":[],"retryInterval":"3","id":"tasks-11378","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":6},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSJY.HK_SECUMAIN","preTasks":[],"retryInterval":"3","id":"tasks-77870","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":7},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSWIND.WINDCUSTOMCODE","preTasks":[],"retryInterval":"3","id":"tasks-18433","workerGroup":"default"},{"conditionResult":{"successNode":[""],"failedNode":[""]},"description":"","runFlag":"NORMAL","params":{"processDefinitionId":8},"type":"SUB_PROCESS","timeout":{"enable":true,"interval":80,"strategy":"WARN"},"maxRetryTimes":3,"taskInstancePriority":"MEDIUM","name":"ODSWIND.COMPINTRODUCTION","preTasks":[],"retryInterval":"3","id":"tasks-74603","workerGroup":"default"}]
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系connect参数：[]
+INFO main iquantex.com.permission.impl.SubProcessTaskImpl - 依赖关系locations参数：{"tasks-88203":{"targetarr":"","nodenumber":"0","name":"ODSCH.TQ_OA_STCODE","x":608,"y":26},"tasks-75531":{"targetarr":"","nodenumber":"0","name":"ODSCH.TQ_COMP_INFO","x":221,"y":143},"tasks-11378":{"targetarr":"","nodenumber":"0","name":"ODSJY.SECUMAIN","x":544,"y":401},"tasks-77870":{"targetarr":"","nodenumber":"0","name":"ODSJY.HK_SECUMAIN","x":230,"y":83},"tasks-74603":{"targetarr":"","nodenumber":"0","name":"ODSWIND.COMPINTRODUCTION","x":378,"y":415},"tasks-44033":{"targetarr":"","nodenumber":"0","name":"ODSJY.FUT_CONTRACTMAIN","x":371,"y":407},"tasks-18433":{"targetarr":"","nodenumber":"0","name":"ODSWIND.WINDCUSTOMCODE","x":763,"y":706},"tasks-27586":{"targetarr":"","nodenumber":"0","name":"ODSJY.LC_INSTIARCHIVE","x":720,"y":611}}
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回状态码：200
+INFO main iquantex.com.dolphinscheduler.command.impl.AuthenticatorImpl - 【getLoginToken接口】返回结果为: {"code":0,"msg":"login success","data":{"sessionId":"39a79318-ec78-486d-ad82-dfa3762a88ba"}}
+INFO main iquantex.com.utils.HttpUtil - 执行结果：{"data":"","jobName":null,"msg":"success","projectName":null,"state":"SUCCESS","userName":null}
+INFO main iquantex.com.easyexcel.ExcelListener - Job名字是：ods12main_einfo_info,已执行完毕！！！

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper">
+
+    <select id="queryTaskInstIdByJobName" resultType="java.lang.String">
+        select
+            t1.id
+        from
+            t_ds_task_instance t1
+        INNER JOIN t_ds_process_definition t2
+        ON t1.process_definition_id =t2.id and t2.name='${jobName}'
+        INNER JOIN t_ds_project t3
+        ON t2.project_id = t3.id AND t3.name='${projectName}'
+        ORDER BY t1.id DESC LIMIT 1
+    </select>
+
+    <select id="queryProcessDefinitionId" resultType="iquantex.com.dolphinscheduler.pojo.ProcessDefinition">
+        SELECT
+        	t1.id,t1.`name`,t1.release_state as releaseState,t1.project_id as projectId,t1.user_id as userId,t1.process_definition_json as processDefinitionJson,t1.description,t1.global_params as globalParams,
+      t1.locations,t1.connects,t1.tenant_id as tenantId
+        FROM
+        	t_ds_process_definition t1
+        INNER JOIN t_ds_project t2 ON t1.project_id = t2.id
+        AND t2. NAME = '${projectName}'
+        WHERE
+        	t1. NAME = '${jobName}'
+        ORDER BY t1.id DESC LIMIT 1
+    </select>
+
+    <select id="queryDataSourceId" resultType="java.lang.Long">
+        SELECT
+        	t1.id
+        FROM
+        	t_ds_datasource t1
+        WHERE
+        	t1.NAME = '${sourceName}'
+    </select>
+
+    <select id="queryTenantId" resultType="java.lang.Long">
+        SELECT
+        	t1.id
+        FROM
+        	t_ds_tenant t1
+        WHERE
+        	t1.tenant_name = '${tenantName}'
+    </select>
+
+    <select id="queryProjectId" resultType="java.lang.Long">
+        SELECT
+        	t1.id
+        FROM
+        	t_ds_project t1
+        WHERE
+        	t1.name = '${name}'
+    </select>
+
+    <select id="getSchedulerId" resultType="java.lang.Long">
+        SELECT
+        	t1.id
+        FROM
+        	t_ds_schedules t1
+        WHERE
+        	t1.process_definition_id = '${processDefinitionId}'
+        	order by t1.id desc limit 1
+    </select>
+
+</mapper>
