@@ -1,16 +1,14 @@
 package iquantex.com.permission.impl;
 
 import com.alibaba.fastjson.JSONArray;
-import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
-import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.entity.LocalParams;
 import iquantex.com.entity.SheetParam;
 import iquantex.com.entity.stroedprodure.StoredProcedureParameters;
 import iquantex.com.entity.stroedprodure.StoredProcedureParams;
 import iquantex.com.enums.DatabaseType;
 import iquantex.com.enums.TaskType;
-import iquantex.com.permission.TaskCommit;
 import iquantex.com.upgrade.InstanceTask;
+import iquantex.com.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.List;
  * @Date 2020/11/17 4:28 下午
  * @Version 1.0
  */
-public class StoreProducerTaskImpl extends AbstractTask implements TaskCommit {
+public class StoreProducerTaskImpl extends AbstractTask {
     private final SheetParam sheet;
     private StoredProcedureParameters storedProcedureParameters;
     private final StoredProcedureParams params;
@@ -46,6 +44,7 @@ public class StoreProducerTaskImpl extends AbstractTask implements TaskCommit {
         storedProcedureParameters =(StoredProcedureParameters) super.convertToData();
         storedProcedureParameters.setDependence(new JSONArray());
         storedProcedureParameters.setType(TaskType.PROCEDURE.name());
+        storedProcedureParameters.setMaxRetryTimes(Constant.MAX_RETRY_TIMES);
         String taskName = sheet.getSubApplication() + "." + sheet.getTableName();
         storedProcedureParameters.setName(taskName);
 
@@ -64,14 +63,5 @@ public class StoreProducerTaskImpl extends AbstractTask implements TaskCommit {
         storedProcedureParameters.setParams(params);
 
         return storedProcedureParameters;
-    }
-
-    /**
-     * 单独创建任务
-     * @return
-     */
-    @Override
-    public Result getTaskParam(ProcessDefinition processDefinition) {
-        return null;
     }
 }

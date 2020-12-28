@@ -3,6 +3,8 @@ package iquantex.com.dolphinscheduler.api.common;
 import com.alibaba.fastjson.JSONObject;
 import iquantex.com.dolphinscheduler.command.Constant;
 import iquantex.com.dolphinscheduler.pojo.Result;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -21,13 +23,11 @@ import java.util.List;
  * @author mujp
  */
 public class HttpClient {
-    private List<NameValuePair> parameters;
-    private String url;
-    private String sessionId;
-    private String method;
-
-    public HttpClient() {
-    }
+    protected static final Log LOGGER = LogFactory.getLog(HttpClient.class);
+    private final List<NameValuePair> parameters;
+    private final String url;
+    private final String sessionId;
+    private final String method;
 
     public HttpClient(List<NameValuePair> parameters
             , String url, String sessionId, String method) {
@@ -37,7 +37,7 @@ public class HttpClient {
         this.method = method;
     }
 
-    public void submit(Result result) {
+    public Result submit(Result result) {
         try {
             CloseableHttpClient closeableHttpClient = HttpClients.createDefault();
             URI uri = new URIBuilder(Constant.URL_HEADER + this.url)
@@ -55,6 +55,7 @@ public class HttpClient {
             result.setState(Constant.STATE_ERROR);
             result.setMsg(e.toString());
         }
+        return result;
     }
 
     public void getting(URI uri, Result result, CloseableHttpClient closeableHttpClient) {
@@ -64,6 +65,7 @@ public class HttpClient {
             httpGet.setHeader("sessionId", this.sessionId);
             response = closeableHttpClient.execute(httpGet);
             String content = EntityUtils.toString(response.getEntity(), "UTF-8");
+            LOGGER.info("访问接口返回结果："+content);
             string2Json(content, result);
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,6 +83,7 @@ public class HttpClient {
             httpPost.setHeader("sessionId", this.sessionId);
             response = closeableHttpClient.execute(httpPost);
             String content = EntityUtils.toString(response.getEntity(), "UTF-8");
+            LOGGER.info("访问接口返回结果："+content);
             string2Json(content, result);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,10 +1,11 @@
 package iquantex.com.dolphinscheduler.mapper.impl;
 
 
-import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
-import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper;
+import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.dolphinscheduler.utils.DBManager;
+
+import java.util.List;
 
 /**
  * @author mujp
@@ -14,7 +15,7 @@ public class ProcessInstanceMapperImpl implements ProcessInstanceMapper {
     private final ProcessInstanceMapper processInstanceMapper;
 
     public ProcessInstanceMapperImpl() {
-        this.processInstanceMapper = DBManager.setUp(new Result());
+        this.processInstanceMapper = DBManager.processInstanceMapper();
     }
 
     @Override
@@ -48,7 +49,8 @@ public class ProcessInstanceMapperImpl implements ProcessInstanceMapper {
     }
 
     @Override
-    public long getSchedulerId(String processDefinitionId) {
-        return processInstanceMapper.getSchedulerId(processDefinitionId);
+    public List<String> batchQueryProcessDefinitionId(List<String> processName, String projectName) {
+        return processInstanceMapper.batchQueryProcessDefinitionId(processName,projectName);
     }
+
 }

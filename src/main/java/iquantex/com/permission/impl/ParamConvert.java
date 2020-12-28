@@ -4,13 +4,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
-import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.entity.*;
 import iquantex.com.entity.dependent.DependParameters;
 import iquantex.com.entity.shell.ShellParameters;
 import iquantex.com.entity.stroedprodure.StoredProcedureParameters;
 import iquantex.com.enums.TaskType;
-import iquantex.com.upgrade.BuildTask;
 import iquantex.com.upgrade.InstanceTask;
 import iquantex.com.utils.Constant;
 import iquantex.com.utils.ParamUtils;
@@ -20,8 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 import static iquantex.com.dolphinscheduler.utils.RandomUtil.randomInteger;
-import static iquantex.com.utils.HttpUtil.executeResult;
-import static iquantex.com.utils.ParamUtils.getInstanceEnv;
+import static iquantex.com.utils.ParamUtils.commitTask;
 
 /**
  * @ClassName SheetParamConvert
@@ -41,7 +38,6 @@ public class ParamConvert {
     private final JSONArray taskTypeArr;
     private final List<Connects> connectsList;
     private final StringBuffer dependenceIdAll;
-    private long timeMillis;
 
     public ParamConvert(SheetParam sheetParam) {
         this.sheetParam = sheetParam;
@@ -52,20 +48,14 @@ public class ParamConvert {
         call();
     }
 
-    public void startTask(){
-
-    }
-
-
     /**
      * 解析excel对象信息
      */
     public void call() {
         LOGGER.info("开始解析excel中的任务，任务名为:{}",sheetParam.getTableName());
-        this.timeMillis = System.currentTimeMillis();
         String taskParam = sheetParam.getTaskParam();
         if (Objects.nonNull(taskParam)) {
-            localParamsList = ParamUtils.taskParamToList(taskParam);
+            localParamsList = ParamUtils.taskParamToList(taskParam.replaceAll("\n+","\n"));
         }
         Connects connects = new Connects();
         List<HashMap<String, Boolean>> targetarr = new ArrayList<>();
@@ -109,16 +99,15 @@ public class ParamConvert {
      * 设置task任务参数
      */
     public void setTaskParameters() {
-        TaskParameters taskParameters = new TaskParameters();
-        taskParameters.setGlobalParams(new ArrayList<>());
-        taskParameters.setTasks(taskTypeArr);
-        taskParameters.setTenantId(new InstanceTask().getTenantId());
-        taskParameters.setTimeout(sheetParam.getAlarmTime());
+            TaskParameters taskParameters = new TaskParameters();
+            taskParameters.setGlobalParams(new ArrayList<>());
+            taskParameters.setTasks(taskTypeArr);
+            taskParameters.setTenantId(new InstanceTask().getTenantId());
+            taskParameters.setTimeout(sheetParam.getAlarmTime());
 
-        String jsonString = JSONObject.toJSONString(taskParameters, SerializerFeature.WriteMapNullValue);
-        String workflowName = sheetParam.getSubApplication() + "." + sheetParam.getTableName();
-        Result result = commitTask(jsonString, workflowName);
-        executeResult(result);
+            String jsonString = JSONObject.toJSONString(taskParameters, SerializerFeature.WriteMapNullValue);
+            String workflowName = sheetParam.getSubApplication() + "." + sheetParam.getTableName();
+            aggregateTask(jsonString, workflowName);
     }
 
     /**
@@ -128,17 +117,20 @@ public class ParamConvert {
      * @param taskName
      * @return
      */
-    public Result commitTask(String json, String taskName) {
-        LOGGER.info("【commitTask】开始创建名字为{}任务。", taskName);
-        ProcessDefinition processDefinition = new ProcessDefinition();
-        processDefinition.setConnects(JSONObject.toJSONString(connectsList));
-        processDefinition.setDescription(sheetParam.getDescription());
-        processDefinition.setGlobalParams("[]");
-        processDefinition.setName(taskName);
-        processDefinition.setProcessDefinitionJson(json);
-        processDefinition.setLocations(locations.toJSONString());
-        LOGGER.info("初始化任务总耗时：{}", (System.currentTimeMillis() - timeMillis) / 1000 + "s");
-        return new BuildTask(getInstanceEnv()).getCreateWorkStat(processDefinition);
+    public void aggregateTask(String json, String taskName) {
+        try {
+            LOGGER.info("【commitTask】开始创建名字为{}任务。", taskName);
+            ProcessDefinition processDefinition = new ProcessDefinition();
+            processDefinition.setConnects(JSONObject.toJSONString(connectsList));
+            processDefinition.setDescription(sheetParam.getDescription());
+            processDefinition.setGlobalParams("[]");
+            processDefinition.setName(taskName);
+            processDefinition.setProcessDefinitionJson(json);
+            processDefinition.setLocations(locations.toJSONString());
+            commitTask(processDefinition);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -180,8 +172,7 @@ public class ParamConvert {
                 taskTypeArr.fluentAdd(JSONArray.toJSON(storedProcedureParameters));
                 break;
             default:
-                LOGGER.error("该任务类型不存在：{}", type.toUpperCase());
-                break;
+                throw new IllegalArgumentException("该任务类型不存在："+type.toUpperCase());
         }
         targetarr.add(map);
     }

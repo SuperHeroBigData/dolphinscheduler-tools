@@ -2,6 +2,7 @@ package iquantex.com.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import iquantex.com.dolphinscheduler.api.exceptions.TasksException;
 import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.enums.State;
 import org.apache.http.client.methods.HttpPost;
@@ -65,7 +66,7 @@ public class HttpUtil {
         bodys.put("text", text);
         StringEntity se = new StringEntity(bodys.toJSONString(), "utf-8");
         httpPost.setEntity(se);
-        //httpClient.execute(httpPost);
+      //  httpClient.execute(httpPost);
     }
     /**
      * 执行结果报错发送告警
@@ -80,7 +81,7 @@ public class HttpUtil {
                 String message = String.format("excel解析报错。报错时间：%s, 项目名：%s, 任务名：%s, 报错信息：%s",
                         DateUtil.formatDate(new Date()),result.getProjectName(),result.getJobName(),result.getMsg());
                 sendWeChatRobotTalkRisk(message);
-                return;
+                throw new TasksException("当前执行失败："+result);
             }
             LOG.info("执行结果：{}",js);
         } catch (IOException e) {

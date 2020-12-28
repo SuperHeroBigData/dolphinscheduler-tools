@@ -33,7 +33,7 @@ public class LoggerModelImpl implements LoggerModel {
             result.setMsg("未获取到session，认证失败");
             return result;
         }
-        ProcessInstanceMapper processInstanceMapper = DBManager.setUp(result);
+        ProcessInstanceMapper processInstanceMapper = DBManager.processInstanceMapper();
         String taskInstId = processInstanceMapper.queryTaskInstIdByJobName(taskName, login.getProjectName());
         if (taskInstId == null) {
             result.setMsg("获取元数据taskInstId不存在。");

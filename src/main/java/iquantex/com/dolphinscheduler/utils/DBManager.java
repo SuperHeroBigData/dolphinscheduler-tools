@@ -1,7 +1,7 @@
 package iquantex.com.dolphinscheduler.utils;
 
-import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper;
+import iquantex.com.dolphinscheduler.mapper.SchedulerMapper;
 import iquantex.com.entity.SheetEnv;
 import iquantex.com.enums.DatabaseType;
 import org.apache.ibatis.io.Resources;
@@ -22,41 +22,66 @@ import static iquantex.com.utils.ParamUtils.getInstanceEnv;
  */
 public class DBManager {
     public static final String RESOURCE = "mybatis-config.xml";
-    public static final String JDBC_URL="jdbc:mysql://%s:%s/%s";
+    public static final String JDBC_URL = "jdbc:mysql://%s:%s/%s";
     public static final String DRIVER = "com.mysql.jdbc.Driver";
     public static Properties properties;
     public static ProcessInstanceMapper processInstanceMapper = null;
+    public static SchedulerMapper schedulerMapper = null;
+
     /**
-     * 获取数据库连接
-     * @param result
+     * 工作流信息
+     *
      * @return
      */
-    public static ProcessInstanceMapper setUp(Result result) {
-        if (Objects.nonNull(processInstanceMapper)){
-            return processInstanceMapper;
-        }
-        InputStream is = null;
-        SqlSession sqlSession = null;
-        try {
-            Properties processInstanceMapper = getProcessInstanceMapper(getInstanceEnv());
-            is = Resources.getResourceAsStream(RESOURCE);
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is,processInstanceMapper);
-            sqlSession = sqlSessionFactory.openSession(true);
-            DBManager.processInstanceMapper = sqlSession.getMapper(ProcessInstanceMapper.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            result.setMsg("mybatis 连接异常。 " + result);
+    public static ProcessInstanceMapper processInstanceMapper() {
+        if (Objects.isNull(processInstanceMapper)) {
+            processInstanceMapper = (ProcessInstanceMapper) setUp(ProcessInstanceMapper.class);
         }
         return processInstanceMapper;
     }
 
     /**
+     * 定时信息
+     *
+     * @return
+     */
+    public static SchedulerMapper schedulerMapper() {
+        if (Objects.isNull(schedulerMapper)) {
+            schedulerMapper = (SchedulerMapper) setUp(SchedulerMapper.class);
+        }
+        return schedulerMapper;
+    }
+
+    /**
+     * 获取数据库连接
+     *
+     * @param cla
+     * @return
+     */
+    public static Object setUp(Class<?> cla) {
+        InputStream is = null;
+        SqlSession sqlSession = null;
+        try {
+            Properties processInstanceMapper = getProcessInstanceMapper(getInstanceEnv());
+            is = Resources.getResourceAsStream(RESOURCE);
+            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(is, processInstanceMapper);
+            sqlSession = sqlSessionFactory.openSession(true);
+            return sqlSession.getMapper(cla);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
      * 配置数据库连接信息
+     *
      * @param sheetEnv
      * @return
      */
     public static Properties getProcessInstanceMapper(SheetEnv sheetEnv) {
-        if (!Objects.equals(DatabaseType.MYSQL,DatabaseType.valueOf(sheetEnv.getDbType()))) {
+        if (!Objects.equals(DatabaseType.MYSQL, DatabaseType.valueOf(sheetEnv.getDbType()))) {
             throw new RuntimeException("ds元数据连接仅支持MYSQL");
         }
         Properties properties = new Properties();
@@ -65,6 +90,6 @@ public class DBManager {
         properties.setProperty("jdbc.url", url);
         properties.setProperty("jdbc.username", sheetEnv.getDbUser());
         properties.setProperty("jdbc.password", sheetEnv.getDbPassword());
-       return properties;
+        return properties;
     }
 }

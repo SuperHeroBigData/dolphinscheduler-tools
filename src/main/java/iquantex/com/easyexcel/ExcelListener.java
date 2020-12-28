@@ -33,6 +33,7 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
     private static final List<SheetEnv> SHEET_ENV_LIST = new ArrayList<>();
     private static final StringBuilder JOB_NAME = new StringBuilder(10);
     private static String START_TASK = null;
+    private static String JOB_DDL = null;
 
     /**
      * 读取excel头
@@ -42,6 +43,21 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
      */
     public void readExcelHead(String filePath, Class<?> cla) {
         EasyExcel.read(filePath, cla, new ExcelListener<>()).sheet().doRead();
+    }
+
+    /**
+     * 初始化环境参数
+     *
+     * @param filePath
+     * @param cla
+     * @param sheetNum
+     * @param headNum
+     * @param startTask
+     * @param ddl
+     */
+    public void readData(String filePath, Class<?> cla, int sheetNum, int headNum, String startTask, String ddl) {
+        JOB_DDL = ddl;
+        readData(filePath, cla, sheetNum, headNum, null);
     }
 
     /**
@@ -103,9 +119,7 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
             ProcessDefinition processDefinition = new ProcessDefinition();
             String jobNames = JOB_NAME.substring(0, JOB_NAME.length() - 1);
             processDefinition.setName(jobNames);
-            Result taskParam = new SubProcessTaskImpl().getTaskParam(processDefinition);
-
-            executeResult(taskParam);
+            new SubProcessTaskImpl().getTaskParam(processDefinition);
             LOGGER.info("Job名字是：{}", jobNames + ",已执行完毕！！！");
         }
     }
@@ -117,7 +131,9 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
      */
     public void convert(T data, int sheetNumber) {
         if (data instanceof SheetEnv) {
-            SHEET_ENV_LIST.add((SheetEnv) data);
+            SheetEnv sheetEnv = (SheetEnv) data;
+            sheetEnv.setJobDDL(JOB_DDL);
+            SHEET_ENV_LIST.add(sheetEnv);
             //ds password加密解密操作
             /* new SheetEnvConvert(SHEET_ENV_LIST);*/
         }
@@ -126,18 +142,15 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
             if (SHEET_ENV_LIST.isEmpty()) {
                 throw new RuntimeException("初始化环境变量sheetEnv为空。");
             }
-            boolean flag = false;
             SheetParam sheetParam = (SheetParam) data;
             if (Objects.nonNull(START_TASK)) {
-                flag = true;
                 if (Objects.equals(sheetParam.getTableName(), START_TASK)) {
                     sheetParam.setSheetNumber(sheetNumber);
-                    new ParamConvert(sheetParam);
                 }
-            }else {
+            } else {
                 sheetParam.setSheetNumber(sheetNumber);
-                new ParamConvert(sheetParam);
             }
+            new ParamConvert(sheetParam);
         }
     }
 

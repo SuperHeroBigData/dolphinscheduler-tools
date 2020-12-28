@@ -9,11 +9,15 @@ public interface Constant {
     String STATE ="/dolphinscheduler/projects/${projectName}/process/release";
     String WORK_FLOW = "/dolphinscheduler/projects/${projectName}/process/save";
     String PROCESS_UPDATE = "/dolphinscheduler/projects/${projectName}/process/update";
+    String PROCESS_DELETE = "/dolphinscheduler/projects/${projectName}/process/delete";
+
     String LOG_INTERFACE_CONN = "/dolphinscheduler/log/detail";
+
     String CREATE_SCHEDULE = "/dolphinscheduler/projects/${projectName}/schedule/create";
     String OFFLINE_SCHEDULE = "/dolphinscheduler/projects/${projectName}/schedule/offline";
     String ONLINE_SCHEDULE = "/dolphinscheduler/projects/${projectName}/schedule/online";
     String UPDATE_SCHEDULE = "/dolphinscheduler/projects/${projectName}/schedule/update";
+
     String AGREEMENT = "http";
     String SLASH = "//";
     String MARK = ":";
@@ -24,10 +28,8 @@ public interface Constant {
     String GET = "get";
     String POST = "post";
 
-    String CONNECTS = "${[]}";
-
-    String LOCATIONS = "{\"${tasks}\":{\"name\":\"${jobName}\",\"targetarr\":\"\",\"x\":${x},\"y\":${y}}}";
-
-    String PROCESS_DEFINITION_JSON = "{\"globalParams\":[],\"tasks\":[{\"type\":\"${type}\",\"id\":\"${tasks}\",\"name\":\"${jobName}\",\"params\":{\"resourceList\":[],\"localParams\":${localParams},\"rawScript\":\"echo \\\"执行 ${projectName} ${jobName}\\\"\\n${command} ${params}\"},\"description\":\"\",\"runFlag\":\"NORMAL\",\"dependence\":{},\"maxRetryTimes\":\"0\",\"retryInterval\":\"1\",\"timeout\":{\"strategy\":\"\",\"interval\":null,\"enable\":false},\"taskInstancePriority\":\"MEDIUM\",\"workerGroupId\":1,\"preTasks\":[]}],\"tenantId\":-1,\"timeout\":0}";
+    String MSG = "msg";
+    String ONLINE = "1";
+    String OFFLINE = "0";
 
 }

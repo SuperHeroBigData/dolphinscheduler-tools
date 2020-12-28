@@ -32,8 +32,8 @@ abstract class AbstractTask {
         String taskId = taskId(Constant.RANDOM_ID);
         parameters.setId(taskId);
         parameters.setDescription(sheet.getDescription());
-        parameters.setMaxRetryTimes(Objects.isNull(sheet.getMaxRerun()) ? Constant.MAX_RETRY_TIMES : Integer.parseInt(sheet.getMaxRerun()));
-
+        parameters.setMaxRetryTimes(Objects.isNull(sheet.getMaxRerun())
+                ? Constant.MAX_RETRY_TIMES : Integer.parseInt(sheet.getMaxRerun()));
         TimeOut timeOut = new TimeOut();
         timeOut.setInterval(Long.parseLong(sheet.getAlarmTime()));
         parameters.setTimeout(timeOut);

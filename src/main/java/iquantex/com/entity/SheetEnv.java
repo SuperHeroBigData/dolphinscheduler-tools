@@ -60,4 +60,9 @@ public class SheetEnv {
     @ExcelProperty(value = "抄送人员",index = 15)
     private String receiversCc;
 
+    /**
+     * 执行任务方式
+     */
+    private String jobDDL;
+
 }

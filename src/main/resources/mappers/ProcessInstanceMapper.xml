@@ -29,6 +29,19 @@
         ORDER BY t1.id DESC LIMIT 1
     </select>
 
+    <select id="batchQueryProcessDefinitionId" resultType="java.lang.String">
+        SELECT
+        	t1.id
+        FROM
+        t_ds_process_definition t1
+        INNER JOIN t_ds_project t2 ON t1.project_id = t2.id
+        AND t2. NAME = '${projectName}'
+        WHERE t1.name in
+        <foreach collection="list" item="processId" open="(" close=")" separator=",">
+            #{processName}
+        </foreach>
+    </select>
+
     <select id="queryDataSourceId" resultType="java.lang.Long">
         SELECT
         	t1.id
@@ -54,16 +67,6 @@
         	t_ds_project t1
         WHERE
         	t1.name = '${name}'
-    </select>
-
-    <select id="getSchedulerId" resultType="java.lang.Long">
-        SELECT
-        	t1.id
-        FROM
-        	t_ds_schedules t1
-        WHERE
-        	t1.process_definition_id = '${processDefinitionId}'
-        	order by t1.id desc limit 1
     </select>
 
 </mapper>

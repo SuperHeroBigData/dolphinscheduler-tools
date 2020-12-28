@@ -12,11 +12,10 @@ import java.util.List;
 public interface WorkFlowModel {
     /**
      * 创建工作流
-     * @param login
      * @param processDefinitionJson
      * @return
      */
-    Result createWorkFlow(SheetEnv login, ProcessDefinition processDefinitionJson);
+    Result createWorkFlow(ProcessDefinition processDefinitionJson);
 
     /**
      * 提交工作流
@@ -35,19 +34,22 @@ public interface WorkFlowModel {
      * @param lineState
      * @param result
      * @param hostName
+     *  @return
      */
-    void releaseState(LineState lineState, Result result, String hostName);
+    Result releaseState(LineState lineState, Result result, String hostName);
 
     /**
      * 更新任务
-     * @param local 本地参数
-     * @param jobName 任务名
-     * @param projectName 项目名
-     * @param loginUser 登录用户
-     * @param loginPassword 登录密码
-     * @param hostName 访问域名
-     * @param result 返回对象
+     * @param processDefinition
+     * @return
      */
-    void updateProcessDefinition(List<LocalParams> local,String jobName, String projectName,String loginUser, String loginPassword, String hostName,Result result);
+    Result updateProcessDefinition(ProcessDefinition processDefinition);
+
+    /**
+     * 删除任务
+     * @param taskName
+     * @return
+     */
+    Result deleteProcessDefinition(String taskName);
 
 }

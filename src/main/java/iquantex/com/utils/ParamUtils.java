@@ -2,9 +2,13 @@ package iquantex.com.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import iquantex.com.entity.ExcelDependEntity;
+import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
+import iquantex.com.dolphinscheduler.pojo.Result;
+import iquantex.com.dolphinscheduler.pojo.Schedule;
 import iquantex.com.entity.LocalParams;
 import iquantex.com.entity.SheetEnv;
+import iquantex.com.enums.DDL;
+import iquantex.com.upgrade.BuildTask;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static iquantex.com.easyexcel.ExcelListener.getSheetEnvList;
+import static iquantex.com.utils.HttpUtil.executeResult;
+import static iquantex.com.utils.HttpUtil.sendWeChatRobotTalkRisk;
 
 /**
  * @ClassName ParamUtils
@@ -39,34 +45,13 @@ public class ParamUtils {
         LocalParams localParams = null;
         for (String dependent :
                 taskParam.split("\n")) {
-            String[] keyValue = dependent.split("=");
+            String[] keyValue = dependent.replace("_x000D_","").split("=");
             localParams = new LocalParams();
             localParams.setProp(keyValue[0]);
             localParams.setValue(keyValue[1]);
             listLocalParams.add(localParams);
         }
         return listLocalParams;
-    }
-
-    /**
-     * 依赖格式转换
-     *
-     * @param dependentParam
-     * @return
-     */
-    public static List<ExcelDependEntity> taskDependToMap(String dependentParam, ExcelDependEntity excelDependEntity) {
-        List<ExcelDependEntity> excelDependEntities = new ArrayList<>();
-        for (String dependent :
-                dependentParam.split("\n")) {
-            String[] taskInfo = dependent.split("\\.");
-            excelDependEntity.setProcessName(taskInfo[0]);
-            excelDependEntity.setDependName(taskInfo[1]);
-            if (Constant.NUMBER == taskInfo.length) {
-                excelDependEntity.setTaskName(taskInfo[2]);
-            }
-            excelDependEntities.add(excelDependEntity);
-        }
-        return excelDependEntities;
     }
 
     /**
@@ -122,4 +107,56 @@ public class ParamUtils {
         return sheetEnv;
     }
 
+    /**
+     * 根据类型提交作业
+     * @param processDefinition
+     * @return
+     */
+    public static void commitTask(ProcessDefinition processDefinition){
+        BuildTask buildTask = new BuildTask(getInstanceEnv());
+        Result result= null;
+        switch (DDL.valueOf(getInstanceEnv().getJobDDL().toUpperCase())) {
+            case CREATE:
+                result = buildTask.createWork(processDefinition);
+                result.setJobName(processDefinition.getName());
+                executeResult(result);
+                break;
+            case DELETE:
+                result = buildTask.batchDeleteWork(processDefinition.getName());
+                result.setJobName(processDefinition.getName());
+                executeResult(result);
+                break;
+            case UPDATE:
+                result = buildTask.updateWork(processDefinition);
+                result.setJobName(processDefinition.getName());
+                executeResult(result);
+                break;
+            default:
+                LOGGER.error("执行方式错误!!! " + getInstanceEnv().getJobDDL());
+                throw new IllegalArgumentException("执行方式错误!!! " + getInstanceEnv().getJobDDL());
+        }
+    }
+
+    /**
+     * 根据类型定时任务
+     * @param schedule
+     * @return
+     */
+    public static void commitSchedule(Schedule schedule){
+        BuildTask buildTask = new BuildTask(getInstanceEnv());
+        switch (DDL.valueOf(getInstanceEnv().getJobDDL().toUpperCase())) {
+            case CREATE:
+                executeResult(buildTask.createWorkSchedule(schedule));
+                break;
+            case UPDATE:
+                executeResult(buildTask.createWorkSchedule(schedule));
+                break;
+            case DELETE:
+                //TODO 删除定时任务
+                break;
+            default:
+                LOGGER.error("执行方式错误!!! " + getInstanceEnv().getJobDDL());
+                throw new IllegalArgumentException("执行方式错误!!! " + getInstanceEnv().getJobDDL());
+        }
+    }
 }

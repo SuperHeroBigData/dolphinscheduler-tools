@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import iquantex.com.dolphinscheduler.command.Constant;
+import iquantex.com.dolphinscheduler.api.exceptions.TasksException;
 import iquantex.com.dolphinscheduler.pojo.Cron;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.dolphinscheduler.pojo.Result;
@@ -83,7 +83,7 @@ public class SubProcessTaskImpl implements TaskCommit {
             result.setState(State.ERROR.name());
             result.setMsg(subProcessParameters.getName() + "\t" + TASK_NOT_EXIST);
             executeResult(result);
-            throw new RuntimeException(subProcessParameters.getName() + "\t" + TASK_NOT_EXIST);
+            throw new TasksException(subProcessParameters.getName() + "\t" + TASK_NOT_EXIST);
         }
 
         Params params = new Params();
@@ -100,8 +100,8 @@ public class SubProcessTaskImpl implements TaskCommit {
         subProcessParameters.setPreTasks(newDependent);
         NODE_NUMBER_LIST.addAll(dependent);
 
-        if (Objects.isNull(CRON)){
-        CRON = sheet.getTaskScheduler();
+        if (Objects.isNull(CRON)) {
+            CRON = sheet.getTaskScheduler();
         }
         SUB_PROCESS_PARAMETERS_QUEUE.add(subProcessParameters);
     }
@@ -139,7 +139,7 @@ public class SubProcessTaskImpl implements TaskCommit {
             }
 
             if (Objects.isNull(getTaskId(task))) {
-                throw new RuntimeException(task + " 依赖任务不存在");
+                throw new TasksException(task + " 依赖任务不存在");
             }
         }
 
@@ -170,6 +170,7 @@ public class SubProcessTaskImpl implements TaskCommit {
 
     /**
      * 美化坐标轴
+     *
      * @return
      */
     public Long point() {
@@ -230,13 +231,12 @@ public class SubProcessTaskImpl implements TaskCommit {
     public static JSONArray getDependenceDefinition() {
         JSONArray dependence = new JSONArray();
         if (CollectionUtils.isEmpty(SUB_PROCESS_PARAMETERS_QUEUE)) {
-            throw new RuntimeException("依赖队列为空。");
+            throw new TasksException("依赖队列为空。");
         }
 
         while (!SUB_PROCESS_PARAMETERS_QUEUE.isEmpty()) {
             SubProcessParameters parameters = SUB_PROCESS_PARAMETERS_QUEUE.poll();
             dependence.fluentAdd(JSONObject.toJSON(parameters));
-
         }
         return dependence;
     }
@@ -248,28 +248,25 @@ public class SubProcessTaskImpl implements TaskCommit {
      * @return 返回执行结果
      */
     @Override
-    public Result getTaskParam(ProcessDefinition processDefinition) {
+    public void getTaskParam(ProcessDefinition processDefinition) {
 
         JSONObject jsonObject = replaceNodeNumber();
-        createNewJob(processDefinition);
-
+        createJob(processDefinition);
         LOGGER.info("依赖关系locations参数：{}", jsonObject.toJSONString());
         processDefinition.setLocations(jsonObject.toJSONString());
+        commitTask(processDefinition);
         SheetEnv instanceEnv = getInstanceEnv();
-        BuildTask createWorkStat = new BuildTask(instanceEnv);
-        Result createWorkStatResult = createWorkStat.getCreateWorkStat(processDefinition);
-        if (Objects.equals(createWorkStatResult.getState(), Constant.STATE_ERROR)){
-            throw new  RuntimeException("该任务已经存在！！！"+JSONObject.toJSONString(createWorkStat));
-        }
         Schedule taskSchedule = getTaskSchedule(instanceEnv, processDefinition.getName());
-        return createWorkStat.getCreateWorkSchedule(taskSchedule);
+        LOGGER.info("Job定时信息：{}", JSONObject.toJSONString(taskSchedule));
+        commitSchedule(taskSchedule);
     }
 
     /**
      * 创建新任务
+     *
      * @param processDefinition
      */
-    public void createNewJob(ProcessDefinition processDefinition) {
+    public void createJob(ProcessDefinition processDefinition) {
         TaskParameters taskParameters = new TaskParameters();
         taskParameters.setGlobalParams(new ArrayList<>());
         JSONArray dependenceDefinition = getDependenceDefinition();
@@ -293,11 +290,12 @@ public class SubProcessTaskImpl implements TaskCommit {
 
     /**
      * Job定时
+     *
      * @param instanceEnv
      * @param jobName
      * @return
      */
-    public Schedule getTaskSchedule(SheetEnv instanceEnv,String jobName){
+    public Schedule getTaskSchedule(SheetEnv instanceEnv, String jobName) {
         Schedule schedule = new Schedule();
         ProcessDefinition processDefinition = new InstanceTask().getProcessDefinitionId(jobName, instanceEnv.getProjectName());
         Long id = processDefinition.getId();

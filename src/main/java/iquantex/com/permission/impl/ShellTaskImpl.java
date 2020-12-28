@@ -1,15 +1,13 @@
 package iquantex.com.permission.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
-import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.entity.LocalParams;
 import iquantex.com.entity.SheetParam;
 import iquantex.com.entity.TimeOut;
 import iquantex.com.entity.shell.ShellParameters;
 import iquantex.com.entity.shell.ShellParams;
 import iquantex.com.enums.TaskType;
-import iquantex.com.permission.TaskCommit;
+import iquantex.com.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.List;
  * @Date 2020/11/17 4:27 下午
  * @Version 1.0
  */
-public class ShellTaskImpl extends AbstractTask implements TaskCommit {
+public class ShellTaskImpl extends AbstractTask {
     private final SheetParam sheet;
     private ShellParameters shellParameters;
     private final ShellParams params;
@@ -48,6 +46,7 @@ public class ShellTaskImpl extends AbstractTask implements TaskCommit {
         shellParameters.setType(TaskType.SHELL.name());
         String taskName = sheet.getSubApplication() + "." + sheet.getTableName();
         shellParameters.setName(taskName + "_" + sheet.getScriptType());
+        shellParameters.setMaxRetryTimes(Constant.MAX_RETRY_TIMES);
 
         if (flag) {
             List<String> preTask = super.getPreTask(taskName);
@@ -67,15 +66,4 @@ public class ShellTaskImpl extends AbstractTask implements TaskCommit {
         return shellParameters;
     }
 
-
-
-    /**
-     * 单独创建任务
-     *
-     * @return
-     */
-    @Override
-    public Result getTaskParam(ProcessDefinition processDefinition) {
-        return null;
-    }
 }

@@ -1,7 +1,5 @@
 package iquantex.com.entity.shell;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.Data;
 
 import java.util.ArrayList;

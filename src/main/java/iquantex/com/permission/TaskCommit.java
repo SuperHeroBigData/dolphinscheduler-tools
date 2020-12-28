@@ -16,6 +16,6 @@ public interface TaskCommit {
      * @param processDefinition
      * @return
      */
-    Result getTaskParam(ProcessDefinition processDefinition);
+    void getTaskParam(ProcessDefinition processDefinition);
 
 }

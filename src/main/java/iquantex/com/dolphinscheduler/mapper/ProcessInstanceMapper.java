@@ -3,6 +3,8 @@ package iquantex.com.dolphinscheduler.mapper;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 /**
  * @author mujp
@@ -53,13 +55,12 @@ public interface ProcessInstanceMapper {
      */
     long queryProjectId(@Param("name") String name);
 
-
     /**
-     * 查询定时任务Id
-     * @param processDefinitionId
+     * 批量查询任务
+     * @param processName
+     * @param projectName
      * @return
      */
-    long getSchedulerId(@Param("processDefinitionId") String processDefinitionId);
-
+    List<String> batchQueryProcessDefinitionId(@Param("processName") List<String> processName,@Param("projectName") String projectName);
 }
 

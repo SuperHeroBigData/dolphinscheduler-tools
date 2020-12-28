@@ -1,13 +1,13 @@
 package iquantex.com.upgrade;
 
-import iquantex.com.dolphinscheduler.command.ScheduleModel;
-import iquantex.com.dolphinscheduler.command.WorkFlowModel;
 import iquantex.com.dolphinscheduler.command.impl.SchedulerImpl;
 import iquantex.com.dolphinscheduler.command.impl.WorkFlowModelImpl;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.dolphinscheduler.pojo.Schedule;
 import iquantex.com.entity.SheetEnv;
+
+import java.util.List;
 
 /**
  * @ClassName BuildTask
@@ -18,23 +18,30 @@ import iquantex.com.entity.SheetEnv;
  */
 public class BuildTask {
 
-    private final WorkFlowModel workFlowModel;
-    private final ScheduleModel scheduleModel;
     private final SheetEnv login;
 
     public BuildTask(SheetEnv login) {
-        this.workFlowModel = new WorkFlowModelImpl(login);
-        this.scheduleModel = new SchedulerImpl(login);
         this.login = login;
     }
 
-    public Result getCreateWorkStat(ProcessDefinition processDefinition){
-        return workFlowModel.createWorkFlow(login,processDefinition);
+    public Result createWork(ProcessDefinition processDefinition){
+        return new WorkFlowModelImpl(login).createWorkFlow(processDefinition);
     }
 
-    public Result getCreateWorkSchedule(Schedule schedule){
-        return scheduleModel.createSchedule(schedule);
+    public Result updateWork(ProcessDefinition processDefinition){
+        return new WorkFlowModelImpl(login).updateProcessDefinition(processDefinition);
     }
 
+    public Result batchDeleteWork(String taskName){
+        return new WorkFlowModelImpl(login).deleteProcessDefinition(taskName);
+    }
+
+    public Result createWorkSchedule(Schedule schedule){
+        return new SchedulerImpl(login).createSchedule(schedule);
+    }
+
+    public Result updateWorkSchedule(Schedule schedule){
+        return new SchedulerImpl(login).updateSchedule(schedule);
+    }
 
 }

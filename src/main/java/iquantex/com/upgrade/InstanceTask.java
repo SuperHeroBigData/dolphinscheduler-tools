@@ -1,5 +1,6 @@
 package iquantex.com.upgrade;
 
+import iquantex.com.dolphinscheduler.api.exceptions.TasksException;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper;
 import iquantex.com.dolphinscheduler.mapper.impl.ProcessInstanceMapperImpl;
@@ -31,7 +32,7 @@ public class InstanceTask {
      */
     public ProcessDefinition getProcessDefinitionId(String jobName, String projectName) {
         if (Objects.isNull(jobName) && Objects.isNull(projectName)) {
-            throw new RuntimeException("excel任务配置 jobName或 projectName 为空.");
+            throw new TasksException("excel任务配置 jobName或 projectName 为空.");
         }
         return processInstanceMapper
                 .queryProcessDefinitionId(jobName, projectName);
@@ -46,7 +47,7 @@ public class InstanceTask {
      */
     public long getDataSourceId(String sourceName) {
         if (Objects.isNull(sourceName)) {
-            throw new RuntimeException("excel任务配置 sourceName 为空.");
+            throw new TasksException("excel任务配置 sourceName 为空.");
         }
         return processInstanceMapper.queryDataSourceId(sourceName);
     }
@@ -59,7 +60,7 @@ public class InstanceTask {
     public long getTenantId() {
         String tenantName = getInstanceEnv().getTenant();
         if (Objects.isNull(tenantName)) {
-            throw new RuntimeException("excel任务配置 tenantName 为空.");
+            throw new TasksException("excel任务配置 tenantName 为空.");
         }
         return processInstanceMapper.queryTenantId(tenantName);
     }

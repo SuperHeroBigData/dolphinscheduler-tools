@@ -36,6 +36,7 @@ public class Result {
 
     public Result(){}
 
+
     public String getState() {
         return state;
     }
