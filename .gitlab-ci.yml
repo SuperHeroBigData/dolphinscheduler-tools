@@ -36,7 +36,7 @@ sonar-analyze:
 build:
   stage: build
   script:
-    - mvn compile && mvn package
+    - mvn compile && mvn package && mvn deploy
   only:
     - develop
     - /(ci\-)+.*$/
