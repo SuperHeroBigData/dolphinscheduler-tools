@@ -1,20 +1,31 @@
 # Project exclude paths
 stages:
+  # sonar扫描代码
+  - sonar
+  - test
+  # 代码构建
   - build
+  # 环境部署
+  #- deploy
+
+sonar-analyze:
+  stage: sonar
+  image: hub.iquantex.com/base/maven:3.6.3-jdk8-helm3
+  script:
+    - mvn org.jacoco:jacoco-maven-plugin:prepare-agent clean install -Dmaven.test.skip=true && mvn sonar:sonar
+  only:
+    - develop
+  tags:
+    - sigma-dev
 
 build_package_with_image:
   stage: build
   image: hub.iquantex.com/base/maven:3.6.3-jdk8-helm3
-  variables:
-    IMG_NAME: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}
-  #  before_script:
-  #  # 根据下面tags中编译机Runner是北京还是深圳，来选择对应的缓存服务器。
-  #    - mount -t nfs nfs.bj.iquantex.com:/opt/gitlab_build_cache/.m2 ~/.m2
-  #- mount -t nfs nfs.sz.iquantex.com:/opt/gitlab_build_cache/.m2 ~/.m2
   script:
-    - mvn compile && mvn package && mvn deploy -Dmaven.test.skip=true
-  #  after_script:
-  #    - umount ~/.m2
+    - mvn compile && mvn package
+    # 将该文件
+    #- mvn compile && mvn package && mvn deploy -Dmaven.test.skip=true
+    #- mvn package -Dmaven.test.skip=true && mvn docker:build -DpushImage -DdockerImageTags=$CI_COMMIT_REF_NAME
   only:
     - develop
     - /^issue-.*$/
@@ -22,7 +33,6 @@ build_package_with_image:
     - tags
   tags:
     - sigma-dev
-
 #build:
 #  stage: build
 #  script:
@@ -31,4 +41,37 @@ build_package_with_image:
 #    - develop
 #    - /(ci\-)+.*$/
 #    - tags
+deploy_to_k8s:
+  stage: deploy
+  image: hub.iquantex.com/base/kube-deploy:beta
+  variables:
+    # 定义变量，方便在下面引用. (可选操作)
+    #IMG: harbor.iquantex.com/front-end/qlw   #可以直接写固定的镜像名称（不包含tag部分），也可以使用下面的CI变量自动拼接。
+    IMG: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}
+    # 需要部署到集群的哪个命名空间, 比如: sigma-dev
+    KUBE_NAMESPACE: fds-dev
+    # 容器提供服务的端口, 请仔细确认自己的应用所用的端口并设置，设置错误将无法访问.
+    APP_PORT: 8887
+  before_script:
+    # 在部署前生成集群访问配置。
+    - cat ${KUBE_SIGMA_DEV} > ~/.kube/config
+  script:
+    # helm命令--set参数会覆盖values中的设定，如果部分参数是固定不变的，则下面无需使用部分--set参数。
+    # 如果有多份values文件，可以使用-f 参数使用指定的values文件.
+    - |
+      helm upgrade ${CI_PROJECT_NAME} \
+      --install -n ${KUBE_NAMESPACE} \
+      --set fullnameOverride=${CI_PROJECT_NAME} \
+      --set groups=${CI_PROJECT_NAMESPACE} \
+      --set containerPort=${APP_PORT} \
+      --set image.repository=${IMG} \
+      --set image.tag=${CI_COMMIT_REF_NAME}  \
+      --set podAnnotations.commitUser="${GITLAB_USER_NAME}-$(date)" \
+      devops/${CI_PROJECT_NAME}
+    - echo "deploy succeeded."
+  only:
+    - develop
+  # 此tags参数并不是git的tags,而是指编译机的标签，意思是指定使用哪个编译机来执行.
+  tags:
+    - sigma-dev
 
