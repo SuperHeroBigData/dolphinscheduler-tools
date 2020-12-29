@@ -2,7 +2,7 @@
 stages:
   # sonar扫描代码
   - sonar
-  - test
+  #- test
   # 代码构建
   - build
   # 环境部署
@@ -18,29 +18,29 @@ sonar-analyze:
   tags:
     - sigma-dev
 
-build_package_with_image:
-  stage: build
-  image: hub.iquantex.com/base/maven:3.6.3-jdk8-helm3
-  script:
-    - mvn compile && mvn package
-    # 将该文件
-    #- mvn compile && mvn package && mvn deploy -Dmaven.test.skip=true
-    #- mvn package -Dmaven.test.skip=true && mvn docker:build -DpushImage -DdockerImageTags=$CI_COMMIT_REF_NAME
-  only:
-    - develop
-    - /^issue-.*$/
-    - /(ci\-)+.*$/
-    - tags
-  tags:
-    - sigma-dev
-#build:
+#build_package_with_image:
 #  stage: build
+#  image: hub.iquantex.com/base/maven:3.6.3-jdk8-helm3
 #  script:
-#    - mvn compile && mvn package && mvn deploy
+#    - mvn compile && mvn package
+#    # 将该文件
+#    #- mvn compile && mvn package && mvn deploy -Dmaven.test.skip=true
+#    #- mvn package -Dmaven.test.skip=true && mvn docker:build -DpushImage -DdockerImageTags=$CI_COMMIT_REF_NAME
 #  only:
 #    - develop
+#    - /^issue-.*$/
 #    - /(ci\-)+.*$/
 #    - tags
+#  tags:
+#    - sigma-dev
+build:
+  stage: build
+  script:
+    - mvn compile && mvn package
+  only:
+    - develop
+    - /(ci\-)+.*$/
+    - tags
 deploy_to_k8s:
   stage: deploy
   image: hub.iquantex.com/base/kube-deploy:beta
