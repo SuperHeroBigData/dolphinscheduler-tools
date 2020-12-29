@@ -1,6 +1,6 @@
 package iquantex.com.permission.impl;
 
-import iquantex.com.entity.SheetEnv;
+import iquantex.com.easyexcel.SheetEnv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

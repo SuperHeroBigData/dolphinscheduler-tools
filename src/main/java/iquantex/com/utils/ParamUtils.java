@@ -6,7 +6,7 @@ import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.dolphinscheduler.pojo.Schedule;
 import iquantex.com.entity.LocalParams;
-import iquantex.com.entity.SheetEnv;
+import iquantex.com.easyexcel.SheetEnv;
 import iquantex.com.enums.DDL;
 import iquantex.com.upgrade.BuildTask;
 import org.apache.commons.collections.CollectionUtils;
@@ -20,7 +20,6 @@ import java.util.Objects;
 
 import static iquantex.com.easyexcel.ExcelListener.getSheetEnvList;
 import static iquantex.com.utils.HttpUtil.executeResult;
-import static iquantex.com.utils.HttpUtil.sendWeChatRobotTalkRisk;
 
 /**
  * @ClassName ParamUtils
@@ -90,7 +89,7 @@ public class ParamUtils {
     }
 
     /**
-     * 获取当前环境
+     * 静态获取当前环境
      *
      * @return
      */
@@ -149,6 +148,7 @@ public class ParamUtils {
                 executeResult(buildTask.createWorkSchedule(schedule));
                 break;
             case UPDATE:
+                //再次创建时，会将之前的定时任务下线
                 executeResult(buildTask.createWorkSchedule(schedule));
                 break;
             case DELETE:

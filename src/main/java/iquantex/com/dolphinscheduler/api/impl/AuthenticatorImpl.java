@@ -1,10 +1,10 @@
-package iquantex.com.dolphinscheduler.command.impl;
+package iquantex.com.dolphinscheduler.api.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import iquantex.com.dolphinscheduler.command.Authenticator;
-import iquantex.com.dolphinscheduler.command.Constant;
+import iquantex.com.dolphinscheduler.api.Authenticator;
+import iquantex.com.dolphinscheduler.api.Constant;
 import iquantex.com.dolphinscheduler.pojo.Result;
-import iquantex.com.entity.SheetEnv;
+import iquantex.com.easyexcel.SheetEnv;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
@@ -27,7 +27,7 @@ import java.util.List;
  * @author mujp
  */
 public class AuthenticatorImpl implements Authenticator {
-    protected static final Log logger = LogFactory.getLog(AuthenticatorImpl.class);
+    protected static final Log LOGGER = LogFactory.getLog(AuthenticatorImpl.class);
     @Override
     public Result authenticate(SheetEnv login) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -45,38 +45,38 @@ public class AuthenticatorImpl implements Authenticator {
                     .build();
             HttpPost httpGet = new HttpPost(uri);
             response = httpclient.execute(httpGet);
-            logger.info("【getLoginToken接口】返回状态码：" + response.getStatusLine().getStatusCode());
+            LOGGER.info("【getLoginToken接口】返回状态码：" + response.getStatusLine().getStatusCode());
             content = EntityUtils.toString(response.getEntity(), "UTF-8");
-            logger.info("【getLoginToken接口】返回结果为: " + content);
+            LOGGER.info("【getLoginToken接口】返回结果为: " + content);
             String data = JSONObject.parseObject(content).getString("data");
             if (data != null ){
                 result.setData(JSONObject.parseObject(data).getString("sessionId"));
             }
             result.setState(Constant.STATE_SUCCESS);
         } catch (ClientProtocolException e) {
-            logger.error("【getLoginToken接口】客户端连接异常：" + e);
+            LOGGER.error("【getLoginToken接口】客户端连接异常：" + e);
             result.setMsg("【getLoginToken接口】客户端连接异常：" + e);
         } catch (IOException e) {
-            logger.error("【getLoginToken接口】客户端IO异常：" + e);
+            LOGGER.error("【getLoginToken接口】客户端IO异常：" + e);
             result.setMsg("【getLoginToken接口】客户端IO异常：" + e);
         } catch (URISyntaxException e) {
-            logger.error("【getLoginToken接口】客户端URI构建异常：" + e);
+            LOGGER.error("【getLoginToken接口】客户端URI构建异常：" + e);
             result.setMsg("【getLoginToken接口】客户端URI构建异常：" + e);
         } catch (Exception e) {
-            logger.error("【getLoginToken接口】异常：" + e);
+            LOGGER.error("【getLoginToken接口】异常：" + e);
             result.setMsg("【getLoginToken接口】异常：" + e);
         } finally {
             if (response != null) {
                 try {
                     response.close();
                 } catch (IOException e) {
-                    logger.error("【getLoginToken接口】关闭response响应异常：" + e);
+                    LOGGER.error("【getLoginToken接口】关闭response响应异常：" + e);
                 }
             }
             try {
                 httpclient.close();
             } catch (IOException e) {
-                logger.error("【getLoginToken接口】关闭客户端异常：" + e);
+                LOGGER.error("【getLoginToken接口】关闭客户端异常：" + e);
             }
         }
         return result;

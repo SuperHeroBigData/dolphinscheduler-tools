@@ -4,18 +4,19 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import iquantex.com.dolphinscheduler.api.exceptions.TasksException;
+import iquantex.com.dolphinscheduler.exceptions.TasksException;
 import iquantex.com.dolphinscheduler.pojo.Cron;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.dolphinscheduler.pojo.Schedule;
+import iquantex.com.easyexcel.SheetEnv;
+import iquantex.com.easyexcel.SheetParam;
 import iquantex.com.entity.*;
 import iquantex.com.entity.subprocess.Params;
 import iquantex.com.entity.subprocess.SubProcessParameters;
 import iquantex.com.enums.State;
 import iquantex.com.enums.TaskType;
 import iquantex.com.permission.TaskCommit;
-import iquantex.com.upgrade.BuildTask;
 import iquantex.com.upgrade.InstanceTask;
 import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
@@ -109,20 +110,19 @@ public class SubProcessTaskImpl implements TaskCommit {
     /**
      * 将当前作业依赖从队列中获取进行对象映射
      *
-     * @param taskId
-     * @param taskName
-     * @param depend
+     * @param taskId 任务Id
+     * @param taskName 任务名
+     * @param depend 每一个excel中当前任务前值依赖任务
+     * @param newDepend 当前任务的依赖添加到depend
      */
     public void subProcessLocations(String taskId, String taskName,
                                     List<String> depend, List<String> newDepend) {
         LOGGER.info("开始生成作业依赖：{}", taskName);
-        System.out.println(depend);
         StringBuilder locationTarget = new StringBuilder(10);
         Connects connects = null;
         String subProcessName = null;
         String subProcessId = null;
-        for (String task :
-                depend) {
+        for (String task : depend) {
             connects = new Connects();
             connects.setEndPointTargetId(taskId);
             for (SubProcessParameters subProcess :
@@ -154,6 +154,11 @@ public class SubProcessTaskImpl implements TaskCommit {
 
     }
 
+    /**
+     * 获取任务Id
+     * @param taskName 任务名
+     * @return 返回依赖中存在的任务名
+     */
     public String getTaskId(String taskName) {
         LOGGER.info("查询依赖信息：{}", taskName);
         ProcessDefinition processDefinitionId = instanceTask.getProcessDefinitionId(taskName, Objects.requireNonNull(getEnvInfo()).getProjectName());
@@ -181,8 +186,8 @@ public class SubProcessTaskImpl implements TaskCommit {
     /**
      * 获取nodeNumber
      *
-     * @param taskName
-     * @return
+     * @param taskName 任务名
+     * @return  节点后置依赖任务数
      */
     public static Long nodeNumber(String taskName) {
         Map<String, Long> collect = NODE_NUMBER_LIST.
@@ -208,8 +213,8 @@ public class SubProcessTaskImpl implements TaskCommit {
     /**
      * 封装subProcess依赖 location部分
      *
-     * @param taskId
-     * @param taskName
+     * @param taskId 任务Id
+     * @param taskName 任务名
      * @return 返回单个task的location参数
      */
     public JSONObject getLocation(String taskId, String taskName, String targetarr) {
@@ -224,9 +229,9 @@ public class SubProcessTaskImpl implements TaskCommit {
     }
 
     /**
-     * 获取依赖对象队列
+     * 获取依赖对象队列 使用
      *
-     * @return
+     * @return  工作流参数
      */
     public static JSONArray getDependenceDefinition() {
         JSONArray dependence = new JSONArray();

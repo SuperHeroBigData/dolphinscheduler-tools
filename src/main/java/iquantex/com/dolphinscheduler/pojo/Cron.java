@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * @ClassName Cron
- * @Description TODO
+ * @Description TODO cron表达式封装
  * @Author jianping.mu
  * @Date 2020/12/15 4:12 下午
  * @Version 1.0

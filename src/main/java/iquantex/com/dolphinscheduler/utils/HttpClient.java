@@ -1,7 +1,7 @@
-package iquantex.com.dolphinscheduler.api.common;
+package iquantex.com.dolphinscheduler.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import iquantex.com.dolphinscheduler.command.Constant;
+import iquantex.com.dolphinscheduler.api.Constant;
 import iquantex.com.dolphinscheduler.pojo.Result;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -2,7 +2,7 @@ package iquantex.com.dolphinscheduler.utils;
 
 import iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper;
 import iquantex.com.dolphinscheduler.mapper.SchedulerMapper;
-import iquantex.com.entity.SheetEnv;
+import iquantex.com.easyexcel.SheetEnv;
 import iquantex.com.enums.DatabaseType;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

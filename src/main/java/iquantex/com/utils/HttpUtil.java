@@ -2,7 +2,7 @@ package iquantex.com.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import iquantex.com.dolphinscheduler.api.exceptions.TasksException;
+import iquantex.com.dolphinscheduler.exceptions.TasksException;
 import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.enums.State;
 import org.apache.http.client.methods.HttpPost;

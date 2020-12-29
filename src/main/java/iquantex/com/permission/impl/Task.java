@@ -1,7 +1,7 @@
 package iquantex.com.permission.impl;
 
 import iquantex.com.entity.Parameters;
-import iquantex.com.entity.SheetParam;
+import iquantex.com.easyexcel.SheetParam;
 import iquantex.com.entity.TimeOut;
 import iquantex.com.enums.TaskType;
 import iquantex.com.utils.Constant;

@@ -18,6 +18,11 @@ public class ParamsUtil {
 
     protected static final Log logger = LogFactory.getLog(ParamsUtil.class);
 
+    /**
+     * 根绝--分割符解析args参数
+     * @param execCommand
+     * @return 键值对类型
+     */
     public HashMap<String, String> parseCommand(String execCommand) {
         String[] commandSplit = execCommand.split("--");
         HashMap<String, String> paramDict = new HashMap<>(16);
@@ -35,6 +40,11 @@ public class ParamsUtil {
         return paramDict;
     }
 
+    /**
+     * 根据文件路径读取json文件
+     * @param filePath
+     * @return
+     */
     public JSONObject readJsonFile(String filePath) {
         logger.info("【readJsonFile】: 读取json文件路径为：" + filePath);
         try {

@@ -1,0 +1,34 @@
+# Project exclude paths
+stages:
+  - build
+
+build_package_with_image:
+  stage: build
+  image: hub.iquantex.com/base/maven:3.6.3-jdk8-helm3
+  variables:
+    IMG_NAME: ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}
+  #  before_script:
+  #  # 根据下面tags中编译机Runner是北京还是深圳，来选择对应的缓存服务器。
+  #    - mount -t nfs nfs.bj.iquantex.com:/opt/gitlab_build_cache/.m2 ~/.m2
+  #- mount -t nfs nfs.sz.iquantex.com:/opt/gitlab_build_cache/.m2 ~/.m2
+  script:
+    - mvn compile && mvn package && mvn deploy -Dmaven.test.skip=true
+  #  after_script:
+  #    - umount ~/.m2
+  only:
+    - develop
+    - /^issue-.*$/
+    - /(ci\-)+.*$/
+    - tags
+  tags:
+    - sigma-dev
+
+#build:
+#  stage: build
+#  script:
+#    - mvn compile && mvn package && mvn deploy
+#  only:
+#    - develop
+#    - /(ci\-)+.*$/
+#    - tags
+

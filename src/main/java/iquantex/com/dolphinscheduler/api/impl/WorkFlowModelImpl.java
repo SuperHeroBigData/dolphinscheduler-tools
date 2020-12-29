@@ -1,14 +1,14 @@
-package iquantex.com.dolphinscheduler.command.impl;
+package iquantex.com.dolphinscheduler.api.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import iquantex.com.dolphinscheduler.api.common.HttpClient;
-import iquantex.com.dolphinscheduler.command.Authenticator;
-import iquantex.com.dolphinscheduler.command.Constant;
-import iquantex.com.dolphinscheduler.command.WorkFlowModel;
+import iquantex.com.dolphinscheduler.utils.HttpClient;
+import iquantex.com.dolphinscheduler.api.Authenticator;
+import iquantex.com.dolphinscheduler.api.Constant;
+import iquantex.com.dolphinscheduler.api.WorkFlowModel;
 import iquantex.com.dolphinscheduler.pojo.*;
 import iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper;
 import iquantex.com.dolphinscheduler.utils.DBManager;
-import iquantex.com.entity.SheetEnv;
+import iquantex.com.easyexcel.SheetEnv;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
@@ -34,9 +34,9 @@ public class WorkFlowModelImpl implements WorkFlowModel {
     private final Authenticator authenticator;
     private final SheetEnv sheetEnv;
 
-    public WorkFlowModelImpl(SheetEnv sheetEnv) {
+    public WorkFlowModelImpl(SheetEnv sheetEnv,Authenticator authenticator) {
         this.sheetEnv = sheetEnv;
-        this.authenticator = new AuthenticatorImpl();
+        this.authenticator = authenticator;
     }
 
     public Result getSessionId() {

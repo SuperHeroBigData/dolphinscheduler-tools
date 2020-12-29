@@ -1,4 +1,4 @@
-package iquantex.com.entity;
+package iquantex.com.easyexcel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;

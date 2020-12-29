@@ -1,8 +1,8 @@
 package iquantex.com;
 
 import iquantex.com.easyexcel.ExcelListener;
-import iquantex.com.entity.SheetEnv;
-import iquantex.com.entity.SheetParam;
+import iquantex.com.easyexcel.SheetEnv;
+import iquantex.com.easyexcel.SheetParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -9,7 +9,7 @@ package iquantex.com.enums;
  */
 public enum Direct {
     /**
-     * 0 in; 1 out;
+     * 入参 in; 出参 out;
      */
     IN,OUT
 }

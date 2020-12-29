@@ -1,9 +1,9 @@
 package iquantex.com.permission.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import iquantex.com.dolphinscheduler.api.exceptions.TasksException;
+import iquantex.com.dolphinscheduler.exceptions.TasksException;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
-import iquantex.com.entity.SheetParam;
+import iquantex.com.easyexcel.SheetParam;
 import iquantex.com.entity.dependent.DependItemList;
 import iquantex.com.entity.dependent.DependParameters;
 import iquantex.com.entity.dependent.DependTaskList;
@@ -39,7 +39,7 @@ public class DependentTaskImpl extends AbstractTask {
 
     /**
      * 封装依赖检查参数
-     * @return
+     * @return 依赖检查参数
      */
     @Override
     public DependParameters convertToData() {
@@ -67,8 +67,8 @@ public class DependentTaskImpl extends AbstractTask {
     /**
      * 依赖格式转换
      *
-     * @param sheet
-     * @param dependItemListList
+     * @param sheet excel参数
+     * @param dependItemListList ${convertToData} 集合
      */
     public void taskDependentJoint(SheetParam sheet, List<DependItemList> dependItemListList, InstanceTask instanceTask) {
         LOGGER.info("【taskDependentJoint】依赖格式转换");
@@ -97,8 +97,8 @@ public class DependentTaskImpl extends AbstractTask {
     /**
      * 封装依赖参数
      *
-     * @param dependence
-     * @param instanceTask
+     * @param dependence 前置依赖任务
+     * @param instanceTask 获取前置依赖任务Id
      */
     public void dependenceParamPackage(Dependence dependence, InstanceTask instanceTask) {
         DependItemList dependItem = new DependItemList();

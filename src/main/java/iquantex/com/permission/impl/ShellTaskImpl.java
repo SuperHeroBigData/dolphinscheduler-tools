@@ -2,7 +2,7 @@ package iquantex.com.permission.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import iquantex.com.entity.LocalParams;
-import iquantex.com.entity.SheetParam;
+import iquantex.com.easyexcel.SheetParam;
 import iquantex.com.entity.TimeOut;
 import iquantex.com.entity.shell.ShellParameters;
 import iquantex.com.entity.shell.ShellParams;

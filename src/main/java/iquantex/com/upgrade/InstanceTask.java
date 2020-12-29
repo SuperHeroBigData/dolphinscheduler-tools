@@ -1,6 +1,6 @@
 package iquantex.com.upgrade;
 
-import iquantex.com.dolphinscheduler.api.exceptions.TasksException;
+import iquantex.com.dolphinscheduler.exceptions.TasksException;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper;
 import iquantex.com.dolphinscheduler.mapper.impl.ProcessInstanceMapperImpl;
@@ -26,9 +26,9 @@ public class InstanceTask {
     /**
      * 获取依赖作业Id
      *
-     * @param jobName
-     * @param projectName
-     * @return
+     * @param jobName 任务名
+     * @param projectName 项目名
+     * @return 流程实例
      */
     public ProcessDefinition getProcessDefinitionId(String jobName, String projectName) {
         if (Objects.isNull(jobName) && Objects.isNull(projectName)) {
@@ -42,8 +42,8 @@ public class InstanceTask {
     /**
      * 获取数据源Id
      *
-     * @param sourceName
-     * @return
+     * @param sourceName 数据源名称
+     * @return 数据源Id
      */
     public long getDataSourceId(String sourceName) {
         if (Objects.isNull(sourceName)) {
@@ -55,7 +55,7 @@ public class InstanceTask {
     /**
      * 获取租户Id
      *
-     * @return
+     * @return 获取租户Id
      */
     public long getTenantId() {
         String tenantName = getInstanceEnv().getTenant();

@@ -2,7 +2,7 @@ package iquantex.com.permission.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import iquantex.com.entity.LocalParams;
-import iquantex.com.entity.SheetParam;
+import iquantex.com.easyexcel.SheetParam;
 import iquantex.com.entity.stroedprodure.StoredProcedureParameters;
 import iquantex.com.entity.stroedprodure.StoredProcedureParams;
 import iquantex.com.enums.DatabaseType;

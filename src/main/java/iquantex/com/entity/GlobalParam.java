@@ -1,5 +1,7 @@
 package iquantex.com.entity;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 
 /**
@@ -9,6 +11,7 @@ import java.util.ArrayList;
  * @Date 2020/11/17 1:49 下午
  * @Version 1.0
  */
+@Data
 public class GlobalParam {
     /**
      * 全局参数
@@ -26,48 +29,6 @@ public class GlobalParam {
      * 超时时间
      */
    private int timeout;
-
-    public ArrayList<String> getGlobalParams() {
-        return globalParams;
-    }
-
-    public void setGlobalParams(ArrayList<String> globalParams) {
-        this.globalParams = globalParams;
-    }
-
-    public ArrayList<String> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(ArrayList<String> tasks) {
-        this.tasks = tasks;
-    }
-
-    public int getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(int tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public int getTimeout() {
-        return timeout;
-    }
-
-    public void setTimeout(int timeout) {
-        this.timeout = timeout;
-    }
-
-    @Override
-    public String toString() {
-        return "GlobalParam{" +
-                "globalParams=" + globalParams +
-                ", tasks=" + tasks +
-                ", tenantId=" + tenantId +
-                ", timeout=" + timeout +
-                '}';
-    }
 
 }
 

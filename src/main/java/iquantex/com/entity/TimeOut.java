@@ -11,7 +11,14 @@ import lombok.Data;
  */
 @Data
 public class TimeOut {
+    /**
+     * 告警策略
+     */
     private String strategy = "WARN";
+    /**
+     * 超时时间
+     */
     private Long interval;
+
     private boolean enable = true;
 }

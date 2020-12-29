@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
+import iquantex.com.easyexcel.SheetParam;
 import iquantex.com.entity.*;
 import iquantex.com.entity.dependent.DependParameters;
 import iquantex.com.entity.shell.ShellParameters;
@@ -113,8 +114,8 @@ public class ParamConvert {
     /**
      * 提交task到ds
      *
-     * @param json
-     * @param taskName
+     * @param json 定义工作流
+     * @param taskName 工作流名称
      * @return
      */
     public void aggregateTask(String json, String taskName) {
@@ -178,11 +179,11 @@ public class ParamConvert {
     }
 
     /**
-     * 初始化作业信息 location部分
+     * 初始化作业信息 location部分，主要体现在画布中位置和依赖关系
      *
-     * @param taskId
-     * @param taskName
-     * @return
+     * @param taskId 任务Id
+     * @param taskName 任务名
+     * @return location依赖关系
      */
     public JSONObject getLocation(String taskId, String taskName, boolean flag) {
         Location location = new Location();
@@ -204,8 +205,8 @@ public class ParamConvert {
     /**
      * 设置connect参数
      *
-     * @param connects
-     * @param id
+     * @param connects DAG依赖关系
+     * @param id 任务Id
      */
     public void getLocationConnect(Connects connects, String id) {
         if (flag) {

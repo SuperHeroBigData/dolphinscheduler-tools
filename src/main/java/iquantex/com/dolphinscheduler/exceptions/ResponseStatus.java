@@ -1,4 +1,4 @@
-package iquantex.com.dolphinscheduler.api.exceptions;
+package iquantex.com.dolphinscheduler.exceptions;
 
 /**
  * @ClassName ResponseStatus

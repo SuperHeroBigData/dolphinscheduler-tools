@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class Connects {
     /**
-     * 起始节点
+     * 起始节点x
      */
    private String endPointSourceId;
     /**

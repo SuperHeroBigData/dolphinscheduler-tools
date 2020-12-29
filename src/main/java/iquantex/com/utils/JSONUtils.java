@@ -55,7 +55,8 @@ public class JSONUtils {
     try{
       return JSON.toJSONString(object,false);
     } catch (Exception e) {
-      logger.error("object to json exception!",e);
+      logger.error("json解析异常",e);
+
     }
 
     return null;

@@ -5,9 +5,6 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.read.metadata.holder.ReadSheetHolder;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
-import iquantex.com.dolphinscheduler.pojo.Result;
-import iquantex.com.entity.SheetEnv;
-import iquantex.com.entity.SheetParam;
 import iquantex.com.permission.impl.ParamConvert;
 import iquantex.com.permission.impl.SubProcessTaskImpl;
 import iquantex.com.utils.Constant;
@@ -18,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import static iquantex.com.utils.HttpUtil.executeResult;
 
 /**
  * @ClassName ExcelListener
