@@ -17,7 +17,7 @@ build:
   stage: build
   image: hub.iquantex.com/base/maven:3.6.3-jdk8-helm3
   script:
-    - mvn package -Dmaven.test.skip=true && mvn docker:build -DpushImage -DdockerImageTags=$CI_COMMIT_REF_NAME
+    - mvn package -Dmaven.test.skip=true
   only:
     - develop
     - /^issue-.*$/
