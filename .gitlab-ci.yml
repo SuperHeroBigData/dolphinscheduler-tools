@@ -17,9 +17,10 @@ build:
   stage: build
   image: hub.iquantex.com/base/maven:3.6.3-jdk8-helm3
   script:
-    - mvn compile && mvn package && mvn deploy
+    - mvn compile && mvn package && mvn deploy -Dmaven.test.skip=true
   only:
     - develop
+    - /^issue-.*$/
     - /(ci\-)+.*$/
     - tags
 
