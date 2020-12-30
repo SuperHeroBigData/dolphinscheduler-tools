@@ -29,7 +29,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54dd9059-ef71-43d2-a6ae-681f5c8a45c6" name="Default Changelist" comment="" />
+    <list default="true" id="54dd9059-ef71-43d2-a6ae-681f5c8a45c6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.gitlab-ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,7 +150,7 @@
       <workItem from="1609248974229" duration="1652000" />
       <workItem from="1609251578265" duration="2450000" />
       <workItem from="1609292722485" duration="656000" />
-      <workItem from="1609305862212" duration="521000" />
+      <workItem from="1609305862212" duration="1531000" />
     </task>
     <servers />
   </component>
@@ -187,6 +190,10 @@
     <state x="370" y="186" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1020@0.23.1792.1020" timestamp="1608191823818" />
     <state x="370" y="186" width="1079" height="734" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1022@0.23.1792.1022" timestamp="1608538332038" />
     <state x="370" y="186" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1792.1024@0.23.1792.1024" timestamp="1608194321659" />
+    <state x="561" y="353" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609314902014">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="561" y="353" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1792.1120@0.0.1792.1120" timestamp="1609314902014" />
     <state x="676" y="180" key="#com.intellij.ide.util.MemberChooser" timestamp="1608811302669">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
