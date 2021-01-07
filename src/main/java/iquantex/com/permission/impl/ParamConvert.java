@@ -120,7 +120,7 @@ public class ParamConvert {
      */
     public void aggregateTask(String json, String taskName) {
         try {
-            LOGGER.info("【commitTask】开始创建名字为{}任务。", taskName);
+            LOGGER.info("【aggregateTask】提交当前任务："+taskName);
             ProcessDefinition processDefinition = new ProcessDefinition();
             processDefinition.setConnects(JSONObject.toJSONString(connectsList));
             processDefinition.setDescription(sheetParam.getDescription());

@@ -71,7 +71,6 @@ public class DependentTaskImpl extends AbstractTask {
      * @param dependItemListList ${convertToData} 集合
      */
     public void taskDependentJoint(SheetParam sheet, List<DependItemList> dependItemListList, InstanceTask instanceTask) {
-        LOGGER.info("【taskDependentJoint】依赖格式转换");
         DependItemList dependItemList = null;
         String dependParam = sheet.getDepend();
         for (String dependent :

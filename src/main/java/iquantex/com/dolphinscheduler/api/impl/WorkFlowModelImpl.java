@@ -24,13 +24,14 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
  * @author mujp
  */
 public class WorkFlowModelImpl implements WorkFlowModel {
-    protected static final Log logger = LogFactory.getLog(WorkFlowModelImpl.class);
+    protected static final Log LOGGER = LogFactory.getLog(WorkFlowModelImpl.class);
     private final Authenticator authenticator;
     private final SheetEnv sheetEnv;
 
@@ -45,7 +46,7 @@ public class WorkFlowModelImpl implements WorkFlowModel {
 
     @Override
     public Result createWorkFlow(ProcessDefinition processDefinitionJson) {
-
+        LOGGER.info("createWorkFlow创建任务："+processDefinitionJson.getName());
         CloseableHttpResponse response = null;
         String content = null;
         CloseableHttpClient httpclient = null;
@@ -85,12 +86,12 @@ public class WorkFlowModelImpl implements WorkFlowModel {
 
             }
         } catch (ClientProtocolException e) {
-            logger.error("【createWorkFlow接口】客户端连接异常：" + e);
+            LOGGER.error("【createWorkFlow接口】客户端连接异常：" + e);
             result.setState("error");
             result.setMsg("【createWorkFlow接口】客户端连接异常：" + e);
         } catch (IOException e) {
             result.setState(Constant.STATE_ERROR);
-            logger.error("【createWorkFlow接口】客户端IO异常：" + e);
+            LOGGER.error("【createWorkFlow接口】客户端IO异常：" + e);
             result.setMsg("【createWorkFlow接口】客户端连接异常：" + e);
         } catch (Exception e) {
             result.setState(Constant.STATE_ERROR);
@@ -101,7 +102,7 @@ public class WorkFlowModelImpl implements WorkFlowModel {
                 try {
                     response.close();
                 } catch (IOException e) {
-                    logger.error("【startJob接口】关闭response响应异常：" + e);
+                    LOGGER.error("【startJob接口】关闭response响应异常：" + e);
                 }
             }
             try {
@@ -109,7 +110,7 @@ public class WorkFlowModelImpl implements WorkFlowModel {
                     httpclient.close();
                 }
             } catch (IOException e) {
-                logger.error("【startJob接口】关闭客户端异常：" + e);
+                LOGGER.error("【startJob接口】关闭客户端异常：" + e);
             }
         }
         return result;
@@ -153,8 +154,9 @@ public class WorkFlowModelImpl implements WorkFlowModel {
 
     @Override
     public Result updateProcessDefinition(ProcessDefinition processDefinition) {
-        ProcessInstanceMapper processInstanceMapper = DBManager.processInstanceMapper();
         String jobName = processDefinition.getName();
+        LOGGER.info("更新任务："+jobName);
+        ProcessInstanceMapper processInstanceMapper = DBManager.processInstanceMapper();
         String projectName = sheetEnv.getProjectName();
         String hostName = sheetEnv.getIp() + ":" + sheetEnv.getPort();
         ProcessDefinition processDefinitionNew = processInstanceMapper.queryProcessDefinitionId(jobName, projectName);
@@ -183,10 +185,14 @@ public class WorkFlowModelImpl implements WorkFlowModel {
 
     @Override
     public Result deleteProcessDefinition(String taskName) {
+        LOGGER.info("删除任务："+taskName);
         //删除任务
         ProcessInstanceMapper processInstanceMapper = DBManager.processInstanceMapper();
         ProcessDefinition processDefinitionNew = processInstanceMapper.queryProcessDefinitionId(taskName, sheetEnv.getProjectName());
         String processDefinitionId = processDefinitionNew.getId().toString();
+        if (processDefinitionId.isEmpty()){
+            throw new IllegalArgumentException("processDefinitionId 为空，当前任务不存在");
+        }
         LineState lineState = new LineState();
         lineState.setFlag(Constant.OFFLINE);
         lineState.setJobName(taskName);
@@ -194,7 +200,8 @@ public class WorkFlowModelImpl implements WorkFlowModel {
         lineState.setProcessDefinitionId(processDefinitionId);
         String hostName = sheetEnv.getIp() + ":" + sheetEnv.getPort();
         Result result = new Result();
-        releaseState(lineState, result, hostName);
+        result = releaseState(lineState, result, hostName);
+        System.out.println(result);
         List<NameValuePair> parameters = new ArrayList<>();
         parameters.add(new BasicNameValuePair("projectName", sheetEnv.getProjectName()));
         parameters.add(new BasicNameValuePair("processDefinitionId", processDefinitionId));
