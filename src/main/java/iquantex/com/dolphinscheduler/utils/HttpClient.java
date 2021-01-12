@@ -83,7 +83,6 @@ public class HttpClient {
             httpPost.setHeader("sessionId", this.sessionId);
             response = closeableHttpClient.execute(httpPost);
             String content = EntityUtils.toString(response.getEntity(), "UTF-8");
-            LOGGER.info("访问接口返回结果："+content);
             string2Json(content, result);
         } catch (IOException e) {
             e.printStackTrace();

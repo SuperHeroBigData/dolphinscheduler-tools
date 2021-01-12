@@ -166,7 +166,7 @@ public class SubProcessTaskImpl implements TaskCommit {
         for (String key : jsonObject.keySet()) {
             JSONObject location = jsonObject.getJSONObject(key);
             String nodeName = location.getString("name");
-            if (Objects.equals(nodeName, taskName)) {
+            if (Objects.equals(nodeName, taskName.trim())) {
                 return key;
             }
         }

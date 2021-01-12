@@ -1,6 +1,7 @@
 package iquantex.com.dolphinscheduler.api.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import iquantex.com.dolphinscheduler.exceptions.TasksException;
 import iquantex.com.dolphinscheduler.utils.HttpClient;
 import iquantex.com.dolphinscheduler.api.Authenticator;
 import iquantex.com.dolphinscheduler.api.Constant;
@@ -9,6 +10,7 @@ import iquantex.com.dolphinscheduler.pojo.*;
 import iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper;
 import iquantex.com.dolphinscheduler.utils.DBManager;
 import iquantex.com.easyexcel.SheetEnv;
+import iquantex.com.enums.State;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.NameValuePair;
@@ -179,6 +181,9 @@ public class WorkFlowModelImpl implements WorkFlowModel {
         parameters.add(new BasicNameValuePair("description", processDefinition.getDescription()));
         HttpClient httpClient = new HttpClient(parameters, hostName + Constant.PROCESS_UPDATE.replace("${projectName}", projectName), getSessionId().getData(), Constant.POST);
         result = httpClient.submit(result);
+        if (State.valueOf(result.getState()).equals(State.ERROR)){
+            throw new TasksException("任务更新失败："+result);
+        }
         lineState.setFlag(Constant.ONLINE);
         return releaseState(lineState, result, hostName);
     }

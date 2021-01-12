@@ -77,7 +77,7 @@ public class DependentTaskImpl extends AbstractTask {
                 dependParam.replaceAll("\n+","\n").split("\n")) {
             dependItemList = new DependItemList();
 
-            dependent = dependent.replace("_x000D_","");
+            dependent = dependent.replace("_x000D_","").trim();
             ProcessDefinition processDefinition = instanceTask.getProcessDefinitionId(dependent, sheet.getApplication());
             if (Objects.isNull(processDefinition)) {
                 LOGGER.error(dependent + " 元数据库中依赖不存在");
