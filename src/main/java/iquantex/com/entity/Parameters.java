@@ -1,5 +1,6 @@
 package iquantex.com.entity;
 
+import com.alibaba.fastjson.JSONObject;
 import iquantex.com.enums.Priority;
 import lombok.Data;
 
@@ -15,8 +16,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Data
-public class Parameters {
-
+public class Parameters  extends AbstractParameters{
     /**
      * 任务编码
      */
@@ -29,7 +29,6 @@ public class Parameters {
      * 名称
      */
     private String name;
-
     /**
      * 描述
      */
@@ -43,19 +42,20 @@ public class Parameters {
      * successNode	Array	成功跳转节点
      * failedNode	Array	失败跳转节点
      */
+
     private final HashMap<String,Object> conditionResult = new HashMap<String,Object>(){{
         put("successNode",new ArrayList<String>(){{add("");}});
         put("failedNode",new ArrayList<String>(){{add("");}});
     }};
-
+    private JSONObject dependence=new JSONObject();
     /**
      * 最大重试次数
      */
-    private int maxRetryTimes = 3;
+    private int maxRetryTimes;
     /**
      * 重试间隔
      */
-    private String retryInterval = "3";
+    private String retryInterval ;
 
     /**
      * 超时控制
@@ -64,11 +64,11 @@ public class Parameters {
     /**
      * 优先级任务
      */
-    private Priority taskInstancePriority = Priority.MEDIUM;
+    private Priority taskInstancePriority;
     /**
      * 分组
      */
-    private String workerGroup = "default";
+    private String workerGroup;
     /**
      * 前置任务
      */

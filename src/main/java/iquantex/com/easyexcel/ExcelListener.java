@@ -4,10 +4,13 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.read.metadata.holder.ReadSheetHolder;
+import iquantex.com.AnalysisApplication;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.permission.impl.ParamConvert;
 import iquantex.com.permission.impl.SubProcessTaskImpl;
 import iquantex.com.utils.Constant;
+import iquantex.com.utils.Constants;
+import jdk.nashorn.internal.scripts.JO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,9 +30,8 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExcelListener.class);
     private static final List<SheetEnv> SHEET_ENV_LIST = new ArrayList<>();
     private static final StringBuilder JOB_NAME = new StringBuilder(10);
-    private static String START_TASK = null;
-    private static String JOB_DDL = null;
-
+    private static Integer currentSheetNo=0;
+    private static String currentSheetName="";
     /**
      * 读取excel头
      *
@@ -40,20 +42,6 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
         EasyExcel.read(filePath, cla, new ExcelListener<>()).sheet().doRead();
     }
 
-    /**
-     * 初始化环境参数
-     *
-     * @param filePath
-     * @param cla
-     * @param sheetNum
-     * @param headNum
-     * @param startTask
-     * @param ddl
-     */
-    public void readData(String filePath, Class<?> cla, int sheetNum, int headNum, String startTask, String ddl) {
-        JOB_DDL = ddl;
-        readData(filePath, cla, sheetNum, headNum, null);
-    }
 
     /**
      * 根据规则一行一行读取数据
@@ -63,8 +51,7 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
      * @param sheetNum sheet页
      * @param headNum  文件头行
      */
-    public void readData(String filePath, Class<?> cla, int sheetNum, int headNum, String startTask) {
-        START_TASK = startTask;
+    public void readData(String filePath, Class<?> cla, int sheetNum, int headNum) {
         EasyExcel.read(filePath, cla, new ExcelListener<>()).sheet(sheetNum)
                 .headRowNumber(headNum).doRead();
     }
@@ -88,7 +75,18 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
      */
     @Override
     public void invoke(T t, AnalysisContext context) {
+        Integer sheetNo = context.readSheetHolder().getReadSheet().getSheetNo();
+        if(!sheetNo.equals(currentSheetNo))
+        {
+            //执行提交工作流指令
+            ProcessDefinition processDefinition = new ProcessDefinition();
+            String workFlowName=currentSheetName;
+            processDefinition.setName(workFlowName);
+            new SubProcessTaskImpl().getTaskParam(processDefinition);
+        }
         ReadSheetHolder readSheetHolder = context.readSheetHolder();
+        currentSheetName = readSheetHolder.getReadSheet().getSheetName();
+        currentSheetNo=readSheetHolder.getReadSheet().getSheetNo();
         convert(t, readSheetHolder.getSheetNo());
     }
 
@@ -103,14 +101,14 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
         ReadSheetHolder readSheetHolder = context.readSheetHolder();
         String sheetName = readSheetHolder.getSheetName();
         Integer sheetNo = readSheetHolder.getSheetNo();
-        if (sheetNo > Constant.JOB) {
-            JOB_NAME.append(sheetName).append("_");
+        if (sheetNo > Constants.JOB) {
+            JOB_NAME.append(sheetName);
         }
         LOGGER.info("Sheet页名字：{}，Sheet页下标：{}",
                 sheetName, sheetNo + "。读取完毕！！！");
 
         //TODO 按照依赖关系生成Job
-        if (sheetNo >= Constant.SHEET_NO) {
+        if (sheetNo >= Constants.SHEET_NO) {
             ProcessDefinition processDefinition = new ProcessDefinition();
             String jobNames = JOB_NAME.substring(0, JOB_NAME.length() - 1);
             processDefinition.setName(jobNames);
@@ -125,38 +123,15 @@ public class ExcelListener<T> extends AnalysisEventListener<T> {
      * @param data
      */
     public void convert(T data, int sheetNumber) {
-        if (data instanceof SheetEnv) {
-            SheetEnv sheetEnv = (SheetEnv) data;
-            sheetEnv.setJobDDL(JOB_DDL);
-            SHEET_ENV_LIST.add(sheetEnv);
-            //ds password加密解密操作
-            /* new SheetEnvConvert(SHEET_ENV_LIST);*/
-        }
         if (data instanceof SheetParam) {
 
-            if (SHEET_ENV_LIST.isEmpty()) {
+            if (Objects.isNull(AnalysisApplication.sheetEnv)) {
                 throw new RuntimeException("初始化环境变量sheetEnv为空。");
             }
             SheetParam sheetParam = (SheetParam) data;
-            if (Objects.nonNull(START_TASK)) {
-                if (Objects.equals(sheetParam.getTableName(), START_TASK)) {
-                    sheetParam.setSheetNumber(sheetNumber);
-                }
-            } else {
-                sheetParam.setSheetNumber(sheetNumber);
-            }
+            sheetParam.setSheetNumber(sheetNumber);
             new ParamConvert(sheetParam);
         }
     }
-
-    /**
-     * 获取环境队列
-     *
-     * @return
-     */
-    public static List<SheetEnv> getSheetEnvList() {
-        return SHEET_ENV_LIST;
-    }
-
 
 }

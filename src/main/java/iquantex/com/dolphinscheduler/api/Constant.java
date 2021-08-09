@@ -4,7 +4,6 @@ package iquantex.com.dolphinscheduler.api;
  * @author mujp
  */
 public interface Constant {
-
     String START_JOB_CONN = "/dolphinscheduler/projects/${projectName}/executors/start-process-instance";
     String STATE ="/dolphinscheduler/projects/${projectName}/process/release";
     String WORK_FLOW = "/dolphinscheduler/projects/${projectName}/process/save";
@@ -31,5 +30,4 @@ public interface Constant {
     String MSG = "msg";
     String ONLINE = "1";
     String OFFLINE = "0";
-
 }

@@ -1,6 +1,8 @@
 package iquantex.com.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @ClassName TimeOut
@@ -10,6 +12,8 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TimeOut {
     /**
      * 告警策略
@@ -18,7 +22,7 @@ public class TimeOut {
     /**
      * 超时时间
      */
-    private Long interval;
+    private Long interval=60L;
 
     private boolean enable = true;
 }

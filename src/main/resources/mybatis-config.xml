@@ -22,5 +22,6 @@
     <mappers>
         <mapper resource="mappers/ProcessInstanceMapper.xml"/>
         <mapper resource="mappers/SchedulerMapper.xml"/>
+        <mapper resource="mappers/ResourceMapper.xml"/>
     </mappers>
   </configuration>

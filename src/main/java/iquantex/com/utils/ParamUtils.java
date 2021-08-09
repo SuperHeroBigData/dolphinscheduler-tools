@@ -2,12 +2,15 @@ package iquantex.com.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import iquantex.com.dolphinscheduler.pojo.LocalParams;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.dolphinscheduler.pojo.Result;
 import iquantex.com.dolphinscheduler.pojo.Schedule;
-import iquantex.com.entity.LocalParams;
 import iquantex.com.easyexcel.SheetEnv;
 import iquantex.com.enums.DDL;
+import iquantex.com.enums.DataType;
+import iquantex.com.enums.Direct;
+import iquantex.com.process.Property;
 import iquantex.com.upgrade.BuildTask;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -39,19 +42,47 @@ public class ParamUtils {
      * @param taskParam key=value
      * @return json
      */
-    public static List<LocalParams> taskParamToList(String taskParam) {
-        List<LocalParams> listLocalParams = new ArrayList<>();
-        LocalParams localParams = null;
+    public static List<Property> taskParamToList(String taskParam) {
+        List<Property> listLocalParams = new ArrayList<>();
+        Property property = null;
         for (String dependent :
                 taskParam.split("\n")) {
             String[] keyValue = dependent.replace("_x000D_","").split("=");
-            localParams = new LocalParams();
-            localParams.setProp(keyValue[0]);
-            localParams.setValue(keyValue[1]);
-            listLocalParams.add(localParams);
+            property = new Property();
+            property.setDirect(Direct.IN);
+            property.setType(DataType.VARCHAR);
+            property.setProp(keyValue[0]);
+            property.setValue(keyValue[1]);
+            listLocalParams.add(property);
         }
         return listLocalParams;
     }
+    /**
+     * 参数格式转换
+     *
+     * @param taskParam direct=dataType=key=value
+     * @return json
+     */
+    public static List<Property> taskParamToListSql(String taskParam) {
+        List<Property> listLocalParams = new ArrayList<>();
+        Property property = null;
+        for (String dependent :
+                taskParam.split("\n")) {
+            String[] keyValue = dependent.replace("_x000D_","").split("=");
+            property = new Property();
+            if(keyValue.length>2)
+            {
+                //非默认逻辑
+                property.setDirect(Enum.valueOf(Direct.class,keyValue[0]));
+                property.setType(Enum.valueOf(DataType.class,keyValue[1]));
+            }
+            property.setProp(keyValue[3]);
+            property.setValue(keyValue[4]);
+            listLocalParams.add(property);
+        }
+        return listLocalParams;
+    }
+
 
     /**
      * 解析依赖字段信息

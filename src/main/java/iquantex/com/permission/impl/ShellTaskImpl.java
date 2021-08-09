@@ -1,15 +1,18 @@
 package iquantex.com.permission.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import iquantex.com.entity.LocalParams;
+import iquantex.com.dolphinscheduler.mapper.ResourceMapper;
+import iquantex.com.dolphinscheduler.mapper.impl.ResourceMapperImpl;
 import iquantex.com.easyexcel.SheetParam;
-import iquantex.com.entity.TimeOut;
+import iquantex.com.entity.ParentTask;
+import iquantex.com.entity.dsentity.Resource;
 import iquantex.com.entity.shell.ShellParameters;
-import iquantex.com.entity.shell.ShellParams;
-import iquantex.com.enums.TaskType;
-import iquantex.com.utils.Constant;
+import iquantex.com.entity.taskConfig.ShellConfig;
+import iquantex.com.process.Property;
+import iquantex.com.process.ResourceInfo;
+import org.springframework.context.annotation.ImportResource;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -22,14 +25,16 @@ import java.util.List;
 public class ShellTaskImpl extends AbstractTask {
     private final SheetParam sheet;
     private ShellParameters shellParameters;
-    private final ShellParams params;
     private final boolean flag;
+    @javax.annotation.Resource
+    private  ResourceMapper resourceMapper;
+    private ParentTask parentTask;
+    public ShellTaskImpl(SheetParam sheet, List<Property> localParamsList, ParentTask parentTask, boolean flag) {
+        super(sheet,parentTask);
+//        this.resourceMapper=new ResourceMapperImpl();
+        this.shellParameters = (ShellParameters) parentTask.getAbstractParameters();
 
-    public ShellTaskImpl(SheetParam sheet, List<LocalParams> localParamsList, ShellParameters shellParameters, boolean flag) {
-        super(sheet, shellParameters);
-        this.shellParameters = shellParameters;
-        this.params = new ShellParams();
-        this.params.setLocalParams(localParamsList);
+        this.shellParameters.setLocalParams(localParamsList);
         this.sheet = sheet;
         this.flag = flag;
     }
@@ -40,30 +45,20 @@ public class ShellTaskImpl extends AbstractTask {
      * @return
      */
     @Override
-    public ShellParameters convertToData() {
-        shellParameters = (ShellParameters) super.convertToData();
-        shellParameters.setDependence(new JSONObject());
-        shellParameters.setType(TaskType.SHELL.name());
-        String taskName = sheet.getSubApplication() + "." + sheet.getTableName();
-        shellParameters.setName(taskName + "_" + sheet.getScriptType());
-        shellParameters.setMaxRetryTimes(Constant.MAX_RETRY_TIMES);
-
-        if (flag) {
-            List<String> preTask = super.getPreTask(taskName);
-            shellParameters.setPreTasks(preTask);
-        } else {
-            shellParameters.setPreTasks(new ArrayList<>());
+    public ParentTask convertToData() {
+        parentTask= super.convertToData();
+        String[] resource = sheet.getResourceList().split(",");
+        HashSet<ResourceInfo> resourcesSet = new HashSet<>();
+        for (int i = 0; i < resource.length; i++) {
+            List<ResourceInfo> resourceList = resourceMapper.queryResourceByfullName(resource[i]);
+            resourcesSet.addAll(resourceList);
         }
-
-        params.setResourceList(new ArrayList<>());
-        params.setRawScript(sheet.getTaskPath());
-
-
-        shellParameters.setParams(params);
-        TimeOut timeOut = new TimeOut();
-        timeOut.setInterval(Long.parseLong(sheet.getAlarmTime()));
-        shellParameters.setTimeout(timeOut);
-        return shellParameters;
+        ArrayList<ResourceInfo> totalResource = new ArrayList<>(resourcesSet);
+        shellParameters.setResourceList(totalResource);
+        ShellConfig shellConfig = (ShellConfig) sheet.getTaskConfig();
+        shellParameters.setRawScript(shellConfig.getRawScript());
+        parentTask.setAbstractParameters(shellParameters);
+        return parentTask;
     }
 
 }

@@ -1,6 +1,8 @@
 package iquantex.com.dolphinscheduler.utils;
 
+import iquantex.com.dolphinscheduler.mapper.DataSourceMapper;
 import iquantex.com.dolphinscheduler.mapper.ProcessInstanceMapper;
+import iquantex.com.dolphinscheduler.mapper.ResourceMapper;
 import iquantex.com.dolphinscheduler.mapper.SchedulerMapper;
 import iquantex.com.easyexcel.SheetEnv;
 import iquantex.com.enums.DatabaseType;
@@ -27,6 +29,8 @@ public class DBManager {
     public static Properties properties;
     public static ProcessInstanceMapper processInstanceMapper = null;
     public static SchedulerMapper schedulerMapper = null;
+    public static ResourceMapper resourceMapper=null;
+    public static DataSourceMapper dataSourceMapper=null;
 
     /**
      * 工作流信息
@@ -39,7 +43,17 @@ public class DBManager {
         }
         return processInstanceMapper;
     }
-
+    /**
+     * 工作流信息
+     *
+     * @return
+     */
+    public static ProcessInstanceMapper resourceMapper() {
+        if (Objects.isNull(resourceMapper)) {
+            resourceMapper = (ResourceMapper) setUp(ResourceMapper.class);
+        }
+        return resourceMapper();
+    }
     /**
      * 定时信息
      *
@@ -50,6 +64,12 @@ public class DBManager {
             schedulerMapper = (SchedulerMapper) setUp(SchedulerMapper.class);
         }
         return schedulerMapper;
+    }
+    public static DataSourceMapper dataSourceMapper() {
+        if (Objects.isNull(schedulerMapper)) {
+            dataSourceMapper = (DataSourceMapper) setUp(DataSourceMapper.class);
+        }
+        return dataSourceMapper;
     }
 
     /**
@@ -92,4 +112,5 @@ public class DBManager {
         properties.setProperty("jdbc.password", sheetEnv.getDbPassword());
         return properties;
     }
+
 }

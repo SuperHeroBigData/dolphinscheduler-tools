@@ -3,6 +3,7 @@ package iquantex.com.permission.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import iquantex.com.dolphinscheduler.pojo.LocalParams;
 import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
 import iquantex.com.easyexcel.SheetParam;
 import iquantex.com.entity.*;
@@ -10,6 +11,7 @@ import iquantex.com.entity.dependent.DependParameters;
 import iquantex.com.entity.shell.ShellParameters;
 import iquantex.com.entity.stroedprodure.StoredProcedureParameters;
 import iquantex.com.enums.TaskType;
+import iquantex.com.process.Property;
 import iquantex.com.upgrade.InstanceTask;
 import iquantex.com.utils.Constant;
 import iquantex.com.utils.ParamUtils;
@@ -31,8 +33,7 @@ import static iquantex.com.utils.ParamUtils.commitTask;
  */
 public class ParamConvert {
     private static final Logger LOGGER = LoggerFactory.getLogger(ParamConvert.class);
-    private List<LocalParams> localParamsList;
-
+    private List<Property> localParamsList;
     private final SheetParam sheetParam;
     private boolean flag = true;
     private final JSONObject locations;
@@ -53,24 +54,15 @@ public class ParamConvert {
      * 解析excel对象信息
      */
     public void call() {
-        LOGGER.info("开始解析excel中的任务，任务名为:{}",sheetParam.getTableName());
+        LOGGER.info("开始解析excel中的任务，任务名为:{}",sheetParam.getSubApplication());
         String taskParam = sheetParam.getTaskParam();
         if (Objects.nonNull(taskParam)) {
             localParamsList = ParamUtils.taskParamToList(taskParam.replaceAll("\n+","\n"));
         }
         Connects connects = new Connects();
         List<HashMap<String, Boolean>> targetarr = new ArrayList<>();
-        analysisType(sheetParam.getTaskType(), connects, targetarr);
-        flag = false;
-
-        if (Objects.nonNull(sheetParam.getTaskPath())) {
-            analysisType(TaskType.SHELL.name(), connects, targetarr);
-        }
-
-        String dependType = sheetParam.getDependType();
-        if (Objects.nonNull(dependType) && Objects.nonNull(sheetParam.getDepend())) {
-            analysisType(dependType, connects, targetarr);
-        }
+        String taskType = sheetParam.getTaskType();
+        analysisType(taskType, connects, targetarr);
         String dependentId = null;
         String dependentName = null;
         //遍历任务的依赖，封装location参数
@@ -92,6 +84,12 @@ public class ParamConvert {
         }
 
         locations.fluentPutAll(getLocation(dependentId, dependentName, true));
+    }
+    /**
+     * 封装工作流
+     */
+    public  void packageWorkFlow()
+    {
         setTaskParameters();
         new SubProcessTaskImpl(sheetParam).convertToData();
     }
@@ -146,13 +144,13 @@ public class ParamConvert {
         HashMap<String, Boolean> map = new HashMap<>(3);
         switch (TaskType.valueOf(type.toUpperCase())) {
             case SHELL:
-                ShellParameters shellParameters = new ShellTaskImpl(sheetParam,
-                        localParamsList, new ShellParameters(), flag).convertToData();
-                String shellId = shellParameters.getId();
-                String shellName = shellParameters.getName();
+                ParentTask parentTask = new ShellTaskImpl(sheetParam,
+                        localParamsList, new ParentTask(), flag).convertToData();
+                String shellId = parentTask.getId();
+                String shellName = parentTask.getName();
                 map.put(shellId + "|" + shellName, flag);
                 getLocationConnect(connects, shellId);
-                taskTypeArr.fluentAdd(JSONArray.toJSON(shellParameters));
+                taskTypeArr.fluentAdd(JSONArray.toJSON(parentTask));
                 break;
             case DEPENDENT:
                 DependParameters dependParameters = new DependentTaskImpl(sheetParam,
@@ -162,6 +160,15 @@ public class ParamConvert {
                 map.put(dependId + "|" + dependName, false);
                 getLocationConnect(connects, dependId);
                 taskTypeArr.fluentAdd(JSONArray.toJSON(dependParameters));
+                break;
+            case PROCEDURE:
+                StoredProcedureParameters storedProcedureParameters = new StoreProducerTaskImpl(sheetParam,
+                        localParamsList, new StoredProcedureParameters(), flag).convertToData();
+                String procedureId = storedProcedureParameters.getId();
+                String procedureName = storedProcedureParameters.getName();
+                map.put(procedureId + "|" + procedureName, flag);
+                getLocationConnect(connects, procedureId);
+                taskTypeArr.fluentAdd(JSONArray.toJSON(storedProcedureParameters));
                 break;
             case PROCEDURE:
                 StoredProcedureParameters storedProcedureParameters = new StoreProducerTaskImpl(sheetParam,

@@ -1,6 +1,5 @@
 package iquantex.com.entity.stroedprodure;
 
-import iquantex.com.entity.LocalParams;
 import iquantex.com.enums.DatabaseType;
 import lombok.Data;
 

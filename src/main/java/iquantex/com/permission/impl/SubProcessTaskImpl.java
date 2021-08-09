@@ -64,7 +64,7 @@ public class SubProcessTaskImpl implements TaskCommit {
      * 初始化subprocess信息
      */
     public void convertToData() {
-        String taskId = taskId(iquantex.com.utils.Constant.RANDOM_ID);
+        String taskId = taskId(iquantex.com.utils.Constants.RANDOM_ID);
         subProcessParameters.setId(taskId);
         subProcessParameters.setDescription(Objects.isNull(sheet.getDescription()) ? "" : sheet.getDescription());
         subProcessParameters.setMaxRetryTimes(Objects.isNull(sheet.getMaxRerun()) ? iquantex.com.utils.Constant.MAX_RETRY_TIMES : Integer.parseInt(sheet.getMaxRerun()));
@@ -170,7 +170,7 @@ public class SubProcessTaskImpl implements TaskCommit {
                 return key;
             }
         }
-        return null;
+        return "";
     }
 
     /**

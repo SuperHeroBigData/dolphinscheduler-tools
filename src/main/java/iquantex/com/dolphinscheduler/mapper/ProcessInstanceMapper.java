@@ -1,66 +1,197 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package iquantex.com.dolphinscheduler.mapper;
 
-import iquantex.com.dolphinscheduler.pojo.ProcessDefinition;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.dolphinscheduler.common.enums.ExecutionStatus;
+import org.apache.dolphinscheduler.dao.entity.ExecuteStatusCount;
+import org.apache.dolphinscheduler.dao.entity.ProcessInstance;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
-
 /**
- * @author mujp
+ * process instance mapper interface
  */
-public interface ProcessInstanceMapper {
-    /**
-     * 获取ProcessInstanceId
-     * @param jobName
-     * @param projectName
-     * @return
-     */
-    String queryTaskInstIdByJobName(@Param("jobName") String jobName,@Param("projectName") String projectName);
+public interface ProcessInstanceMapper extends BaseMapper<ProcessInstance> {
 
     /**
-     * 获取taskInstId
-     * @param jobName
-     * @param projectName
-     * @return
+     * query process instance detail info by id
+     * @param processId processId
+     * @return process instance
      */
-    ProcessDefinition queryProcessDefinitionId(@Param("jobName") String jobName, @Param("projectName") String projectName);
+    ProcessInstance queryDetailById(@Param("processId") int processId);
 
     /**
-     * 获取Job参数
-     * @param jobName
-     * @param projectName
-     * @return
+     * query process instance by host and stateArray
+     * @param host host
+     * @param stateArray stateArray
+     * @return process instance list
      */
-    String queryProcessDefinitionJson(@Param("jobName") String jobName,@Param("projectName") String projectName);
+    List<ProcessInstance> queryByHostAndStatus(@Param("host") String host,
+                                               @Param("states") int[] stateArray);
 
     /**
-     * 查询数据源Id
-     * @param sourceName
-     * @return
+     * query process instance by tenantId and stateArray
+     * @param tenantId tenantId
+     * @param states states array
+     * @return process instance list
      */
-    long queryDataSourceId(@Param("sourceName") String sourceName);
+    List<ProcessInstance> queryByTenantIdAndStatus(@Param("tenantId") int tenantId,
+                                                   @Param("states") int[] states);
 
     /**
-     * 查询租户Id
-     * @param tenantName
-     * @return
+     * query process instance by worker group and stateArray
+     * @param workerGroupName workerGroupName
+     * @param states states array
+     * @return process instance list
      */
-    long queryTenantId(@Param("tenantName") String tenantName);
+    List<ProcessInstance> queryByWorkerGroupNameAndStatus(@Param("workerGroupName") String workerGroupName,
+                                                          @Param("states") int[] states);
 
     /**
-     * 查询项目Id
-     * @param name
-     * @return
+     * process instance page
+     * @param page page
+     * @param projectId projectId
+     * @param processDefinitionId processDefinitionId
+     * @param searchVal searchVal
+     * @param statusArray statusArray
+     * @param host host
+     * @param startTime startTime
+     * @param endTime endTime
+     * @return process instance IPage
      */
-    long queryProjectId(@Param("name") String name);
 
     /**
-     * 批量查询任务
-     * @param processName
-     * @param projectName
-     * @return
+     * process instance page
+     * @param page page
+     * @param projectId projectId
+     * @param processDefinitionId processDefinitionId
+     * @param searchVal searchVal
+     * @param executorId executorId
+     * @param statusArray statusArray
+     * @param host host
+     * @param startTime startTime
+     * @param endTime endTime
+     * @return process instance page
      */
-    List<String> batchQueryProcessDefinitionId(@Param("processName") List<String> processName,@Param("projectName") String projectName);
+    IPage<ProcessInstance> queryProcessInstanceListPaging(Page<ProcessInstance> page,
+                                                          @Param("projectId") int projectId,
+                                                          @Param("processDefinitionId") Integer processDefinitionId,
+                                                          @Param("searchVal") String searchVal,
+                                                          @Param("executorId") Integer executorId,
+                                                          @Param("states") int[] statusArray,
+                                                          @Param("host") String host,
+                                                          @Param("startTime") Date startTime,
+                                                          @Param("endTime") Date endTime);
+
+    /**
+     * set failover by host and state array
+     * @param host host
+     * @param stateArray stateArray
+     * @return set result
+     */
+    int setFailoverByHostAndStateArray(@Param("host") String host,
+                                       @Param("states") int[] stateArray);
+
+    /**
+     * update process instance by state
+     * @param originState  originState
+     * @param destState destState
+     * @return update result
+     */
+    int updateProcessInstanceByState(@Param("originState") ExecutionStatus originState,
+                                     @Param("destState") ExecutionStatus destState);
+
+    /**
+     *  update process instance by tenantId
+     * @param originTenantId originTenantId
+     * @param destTenantId destTenantId
+     * @return update result
+     */
+    int updateProcessInstanceByTenantId(@Param("originTenantId") int originTenantId,
+                                        @Param("destTenantId") int destTenantId);
+
+    /**
+     * update process instance by worker group name
+     * @param originWorkerGroupName originWorkerGroupName
+     * @param destWorkerGroupName destWorkerGroupName
+     * @return update result
+     */
+    int updateProcessInstanceByWorkerGroupName(@Param("originWorkerGroupName") String originWorkerGroupName,
+                                               @Param("destWorkerGroupName") String destWorkerGroupName);
+
+    /**
+     * count process instance state by user
+     * @param startTime startTime
+     * @param endTime endTime
+     * @param projectIds projectIds
+     * @return ExecuteStatusCount list
+     */
+    List<ExecuteStatusCount> countInstanceStateByUser(
+            @Param("startTime") Date startTime,
+            @Param("endTime") Date endTime,
+            @Param("projectIds") Integer[] projectIds);
+
+    /**
+     * query process instance by processDefinitionId
+     * @param processDefinitionId processDefinitionId
+     * @param size size
+     * @return process instance list
+     */
+    List<ProcessInstance> queryByProcessDefineId(
+            @Param("processDefinitionId") int processDefinitionId,
+            @Param("size") int size);
+
+    /**
+     * query last scheduler process instance
+     * @param definitionId processDefinitionId
+     * @param startTime startTime
+     * @param endTime endTime
+     * @return process instance
+     */
+    ProcessInstance queryLastSchedulerProcess(@Param("processDefinitionId") int definitionId,
+                                              @Param("startTime") Date startTime,
+                                              @Param("endTime") Date endTime);
+
+    /**
+     * query last running process instance
+     * @param definitionId definitionId
+     * @param startTime startTime
+     * @param endTime endTime
+     * @param stateArray stateArray
+     * @return process instance
+     */
+    ProcessInstance queryLastRunningProcess(@Param("processDefinitionId") int definitionId,
+                                            @Param("startTime") Date startTime,
+                                            @Param("endTime") Date endTime,
+                                            @Param("states") int[] stateArray);
+
+    /**
+     * query last manual process instance
+     * @param definitionId definitionId
+     * @param startTime startTime
+     * @param endTime endTime
+     * @return process instance
+     */
+    ProcessInstance queryLastManualProcess(@Param("processDefinitionId") int definitionId,
+                                           @Param("startTime") Date startTime,
+                                           @Param("endTime") Date endTime);
 }
-

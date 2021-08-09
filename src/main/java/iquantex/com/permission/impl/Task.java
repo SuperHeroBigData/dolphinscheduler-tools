@@ -1,12 +1,20 @@
 package iquantex.com.permission.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import iquantex.com.easyexcel.CommonConfig;
+import iquantex.com.entity.AbstractParameters;
 import iquantex.com.entity.Parameters;
 import iquantex.com.easyexcel.SheetParam;
+import iquantex.com.entity.ParentTask;
 import iquantex.com.entity.TimeOut;
+import iquantex.com.enums.Priority;
 import iquantex.com.enums.TaskType;
 import iquantex.com.utils.Constant;
+import iquantex.com.utils.Constants;
+import netscape.javascript.JSObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,41 +29,34 @@ import static iquantex.com.dolphinscheduler.utils.RandomUtil.taskId;
  */
 abstract class AbstractTask {
     private final SheetParam sheet;
-    private final Parameters parameters;
-
-    public AbstractTask(SheetParam sheet, Parameters parameters) {
-        this.parameters = parameters;
+    private final ParentTask parentTask;
+    private final CommonConfig commonConfig;
+    public AbstractTask(SheetParam sheet, ParentTask parentTask) {
+        this.parentTask = parentTask;
         this.sheet = sheet;
+        CommonConfig config =sheet.getCommonConfig();
+        this.commonConfig =config;
     }
 
-    public Parameters convertToData() {
-        String taskId = taskId(Constant.RANDOM_ID);
-        parameters.setId(taskId);
-        parameters.setDescription(sheet.getDescription());
-        parameters.setMaxRetryTimes(Objects.isNull(sheet.getMaxRerun())
-                ? Constant.MAX_RETRY_TIMES : Integer.parseInt(sheet.getMaxRerun()));
-        TimeOut timeOut = new TimeOut();
-        timeOut.setInterval(Long.parseLong(sheet.getAlarmTime()));
-        parameters.setTimeout(timeOut);
-        return parameters;
+    public ParentTask convertToData() {
+        String taskId = taskId(Constants.RANDOM_ID);
+        parentTask.setId(taskId);
+        parentTask.setDescription(sheet.getDescription());
+        parentTask.setType(TaskType.SHELL.name());
+        parentTask.setName(sheet.getSubApplication());
+        parentTask.setMaxRetryTimes(Integer.parseInt(commonConfig.getMaxRetryTimes()));
+        parentTask.setRunFlag(commonConfig.getRunFlag());
+        parentTask.setRetryInterval(commonConfig.getRetryInterval());
+        parentTask.setTaskInstancePriority(Priority.valueOf(commonConfig.getTaskInstancePriority()));
+        parentTask.setWorkerGroup(commonConfig.getWorkerGroup());
+        parentTask.setTimeout(commonConfig.getTime_out());
+        parentTask.setPreTasks(Arrays.asList(commonConfig.getPretasksList().split(",")));
+        return parentTask;
     }
 
-    public List<String> getPreTask(String taskName){
+    public List<String> getPreTask(){
         List<String> preTasks = new ArrayList<>();
-
-        /**
-         * 添加依赖检查依赖
-         */
-        if (Objects.nonNull(sheet.getDependType()) && Objects.equals(TaskType.DEPENDENT,TaskType.valueOf(sheet.getDependType()))){
-            preTasks.add(taskName+"_"+TaskType.DEPENDENT.name());
-        }
-
-        /**
-         * 添加shell任务依赖
-         */
-        if (Objects.nonNull(sheet.getTaskPath()) && Objects.nonNull(sheet.getScriptType())){
-            preTasks.add(taskName+"_"+sheet.getScriptType());
-        }
+       preTasks= Arrays.asList(commonConfig.getPretasksList().split(","));
         return preTasks;
     }
 

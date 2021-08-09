@@ -1,51 +1,63 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package iquantex.com.entity.shell;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.annotation.JSONField;
-import iquantex.com.entity.Parameters;
-import iquantex.com.entity.TimeOut;
-import iquantex.com.enums.Priority;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import iquantex.com.entity.AbstractParameters;
+import iquantex.com.process.ResourceInfo;
+
+import java.util.List;
 
 /**
- * @ClassName ShellParameters
- * @Description TODO Shell 任务参数封装
- * @Author jianping.mu
- * @Date 2020/11/13 6:17 下午
- * @Version 1.0
+ * shell parameters
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-public class ShellParameters extends Parameters {
-    /**
-     * 任务依赖
-     */
-    private JSONObject dependence;
-    /**
-     * 最大重试次数
-     */
-    private int maxRetryTimes = 3;
-    /**
-     * 重试间隔
-     */
-    private String retryInterval = "3";
+public class ShellParameters extends AbstractParameters {
+  /**
+   * shell script
+   */
+  private String rawScript;
 
-    /**
-     * 超时控制
-     */
-    private TimeOut timeout;
-    /**
-     * 优先级任务
-     */
-    private Priority taskInstancePriority = Priority.MEDIUM;
-    /**
-     * 分组
-     */
-    private String workerGroup = "default";
-    /**
-     * 自定义参数
-     */
-    @JSONField
-    private ShellParams params;
+  /**
+   * resource list
+   */
+  private List<ResourceInfo> resourceList;
+
+  public String getRawScript() {
+    return rawScript;
+  }
+
+  public void setRawScript(String rawScript) {
+    this.rawScript = rawScript;
+  }
+
+  public List<ResourceInfo> getResourceList() {
+    return resourceList;
+  }
+
+  public void setResourceList(List<ResourceInfo> resourceList) {
+    this.resourceList = resourceList;
+  }
+
+  @Override
+  public boolean checkParameters() {
+    return rawScript != null && !rawScript.isEmpty();
+  }
+
+  @Override
+  public List<ResourceInfo> getResourceFilesList() {
+    return resourceList;
+  }
 }
